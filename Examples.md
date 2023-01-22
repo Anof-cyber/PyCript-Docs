@@ -12,7 +12,7 @@ The Request Type allows you to select the type of request or message that needs 
 
 This type can be used if your complete request body is encrypted. The extension will take the body and base64 encode it and will send it to the JavaScript code.
 
-```Raw Request
+```http
 POST /crypto/myprofile/ HTTP/1.1
 Host: localhost:8000
 Accept-Encoding: gzip, deflate
@@ -41,7 +41,7 @@ The above request has a completely encrypted body. If the Decrypted output is in
 
 This type can be used if your request body is in JSON Format but only values are encrypted. The extension will go through each value and will perform the encryption decryption on each value one by one. each value will be base64 encoded and will send to the JavaScript code.
 
-```Raw Request
+```http
 POST /crypto/login/ HTTP/1.1
 Host: localhost:8000
 Accept-Encoding: gzip, deflate
@@ -67,7 +67,7 @@ The above request has only value encrypted and the ```JSON Value``` type can be 
 
 This type can be used if your request body is in JSON Format with the key and value both encrypted. The extension will go through each key and value pair and will perform the encryption decryption on each key and value one by one. each key and value will be base64 encoded and will send to the JavaScript code.
 
-```Raw Request
+```http
 POST /crypto/login/ HTTP/1.1
 Host: localhost:8000
 Accept-Encoding: gzip, deflate
@@ -94,7 +94,7 @@ The custom request is useful when you need to perform any action using javascrip
 
 The Custom Request type will take the request body and will encode the request body with base64 and will provide it to the JavaScript code. The extension will also take the Request header and which will be also provided to JavaScript code and you can use Javascript code to get the key and IV from the header.
 
-```Raw Request
+```http
 POST /crypto/myprofile/ HTTP/1.1
 Host: localhost:8000
 Accept-Encoding: gzip, deflate
