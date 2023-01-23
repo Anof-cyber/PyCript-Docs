@@ -87,3 +87,24 @@ console.log(Output)
 
 - The code is same as previous code. Since Custom request requires header we have another command line argument as ```-h```
 - Lastly we are reading the output of the header value and the rest of the code is same.
+
+
+
+
+## Debug
+
+If you are unable to decrypt or encrypt the request in extension. Make sure to verfiy if JavaScript code is working properly. If you want to encrpyt or decrypt the request body/string then base64 encode the value and run the same command in your terminal or CMD.
+
+```bash
+node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypted-request-body
+```
+
+```bash
+node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypted-request-body -h [POST /crypto/user/ HTTP/1.1, Host: localhost:8000, Key: 1234, Iv: 1234]
+```
+
+If you are able to encrypt and decrypt using the script manually but not with the extension. Make sure you have using the correct request type and have loaded the correct JS file in the extension. If everything is correct raise an github issues on the Pycript Repository 
+
+!>Make sure the path provided to the extension for encrpytion and decryption Javascript file has all the required library installed.
+
+
