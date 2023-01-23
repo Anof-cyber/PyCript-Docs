@@ -103,10 +103,10 @@ node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypte
 node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypted-request-body -h [POST /crypto/user/ HTTP/1.1, Host: localhost:8000, Key: 1234, Iv: 1234]
 ```
 
-If you are able to encrypt and decrypt using the script manually but not with the extension. Make sure you have using the correct request type and have loaded the correct JS file in the extension. If everything is correct raise an github issues on the Pycript Repository 
+If you are able to encrypt and decrypt using the script manually but not with the extension. Make sure you are using the correct request type and have loaded the correct JS file in the extension. If everything is correct raise an github issues on the Pycript Repository 
 
 !>Make sure the path provided to the extension for encrpytion and decryption Javascript file has all the required library installed.
 
 ## Demo Code
-If you are looking for demo encryption decryption code for command type of encryption or logic you can get it from the [PyCript Templace](https://github.com/Anof-cyber/PyCript-Template)
+If you are looking for demo encryption decryption code for common type of encryption or logic you can get it from the [PyCript Templace](https://github.com/Anof-cyber/PyCript-Template)
 
