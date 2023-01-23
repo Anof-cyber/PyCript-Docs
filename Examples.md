@@ -1,8 +1,21 @@
+# Flow of the Extension
+
+- Load the Encryption and Decryption JavaScript File in the extension
+- Select the Request Type according to your request and encryption
+- Add the URL in Burp Suite Scope
+- Go to Repeater, Proxy Intercept, Proxy History,Intruder, Target
+- You can see a new tab in the reequest message named PyCript
+- If everyting is setup correctly and extnsion is given correct encryption decryption code you see the decrypted text
+- Edit the decrpyted text and send the request
+- The extension will take care of encrpytion of your modified value
+
 # Config
 
 The config tab has all the settings you will be required to perform the encryption and decryption. The PyCript extension encodes the request body of a message in Burp Suite using base64 encoding. It then provides both the headers and encoded body to JavaScript code. The JavaScript code is responsible for decrypting or encrypting the request body. After the JavaScript code is finished, the extension retrieves the updated body and updates the request in Burp Suite.
 
 !>The extension works only on URL added in the burp suite Scope
+
+
 
 ## Request Type
 
