@@ -234,3 +234,7 @@ The extension allows you to decpryt any string you select within the request and
 - The extension will show a Popup with the Decrypted output for your selected string.
 
 
+# Decrypted Request
+
+The tab will is used to store the decrypted reequest. Once you select ```Decrypt Request``` from the menu. The eextension will store the decryptd request here. Later you can select one or multiple row and right click to perfrom the action such as send the request to ```Repeater, Intruder, Scanner, or Send the decrypted request to the server```
+
