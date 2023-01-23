@@ -66,3 +66,24 @@ node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypte
 [POST /crypto/myprofile/ HTTP/1.1, Host: localhost:8000, Accept-Encoding: gzip, deflate, Accept: */*, Accept-Language: en-US;q=0.9,en;q=0.8, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36, Connection: close, Key: 1234, Iv: 1234, Cache-Control: max-age=0, Content-Type: application/x-www-form-urlencoded, Content-Length: 24]
 
 ```
+
+```javascript
+var CryptoJS = require("crypto-js");
+const program = require("commander");
+const { Buffer } = require('buffer');
+program
+  .option("-d, --data <data>", "Data to process")
+  .option("-h, --header <data>", "Header")
+  .parse(process.argv);
+  
+const options = program.opts();
+const requestbody = Buffer.from(options.data, 'base64').toString('utf8');
+const header = options.header
+
+'Your encryption and decryption logic should be here'
+
+console.log(Output)
+```
+
+- The code is same as previous code. Since Custom request requires header we have another command line argument as ```-h```
+- Lastly we are reading the output of the header value and the rest of the code is same.
