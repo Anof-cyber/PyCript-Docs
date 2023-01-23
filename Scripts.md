@@ -107,4 +107,6 @@ If you are able to encrypt and decrypt using the script manually but not with th
 
 !>Make sure the path provided to the extension for encrpytion and decryption Javascript file has all the required library installed.
 
+## Demo Code
+If you are looking for demo encryption decryption code for command type of encryption or logic you can get it from the [PyCript Templace](https://github.com/Anof-cyber/PyCript-Template)
 
