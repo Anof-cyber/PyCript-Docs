@@ -22,6 +22,29 @@ node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypte
 
 !>Since the extension read the system command output, there should not be more than 1 ```console.log``` in the code
 
+```javascript
+var CryptoJS = require("crypto-js");
+const program = require("commander");
+const { Buffer } = require('buffer');
+program
+  .option("-d, --data <data>", "Data to process")
+  .parse(process.argv);
+  
+const options = program.opts();
+const requestbody = Buffer.from(options.data, 'base64').toString('utf8');
+
+'Your encryption and decryption logic should be here'
+
+console.log(Output)
+```
+
+- In above code we are using cryptojs library you can use any other based your choice.
+- The script code is also using command library to allow our code to implement the command line argument.
+- Sice our body will be base64 encode we have buffer library to base64 decode the body.
+- We are using the command library to add ```-d``` as command line argument in our script
+- Later we are reading the value of of ```-d``` and then using buffer library to decode the value with base64.
+- After that you can add your encryption or decryption logic.
+- Lastly we have to print the output of encrypted or decrypted text using ```console.log()```
 
 ## Custom Request Type
 
@@ -37,6 +60,7 @@ node user/provided/javascript/file/path/decryption.js -d bas64-encodeed-decrypte
 - The extension will also provide HTTP header to the JS code. The header will not be base64 encoded you can directly read the header.
 - The extension doesn't allow you to modify the header values using JavaScript code and update the header in your burp request.
 - Since header is not allowed to modify the there should be only 1 ```console.log()``` in your JS code
+- You can read the output of the header provided to the JS code of your current request in the Extender tab and in the output section of the PyCript extension
 
 ```http
 [POST /crypto/myprofile/ HTTP/1.1, Host: localhost:8000, Accept-Encoding: gzip, deflate, Accept: */*, Accept-Language: en-US;q=0.9,en;q=0.8, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36, Connection: close, Key: 1234, Iv: 1234, Cache-Control: max-age=0, Content-Type: application/x-www-form-urlencoded, Content-Length: 24]
