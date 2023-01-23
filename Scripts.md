@@ -14,3 +14,8 @@ node user/provided/javascript/file/path/encryption.js -d bas64-encodeed-encrypte
 
 !>Since the extension read the system command output, there should not be more than 1 ```console.log``` in the code
 
+
+```http
+[POST /crypto/user/ HTTP/1.1, Host: localhost:8000, Accept-Encoding: gzip, deflate, Accept: */*, Accept-Language: en-US;q=0.9,en;q=0.8, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36, Connection: close, Cache-Control: max-age=0, Content-Type: application/x-www-form-urlencoded, Content-Length: 61, Postman-Token: 3a8d261f-8ebb-4028-86e0-5a33432e604e]
+
+```
