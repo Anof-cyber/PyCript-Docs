@@ -42,6 +42,7 @@ KtKB81Oamvuzo9entPFKZQ==
 
 The above request has a completely encrypted body. If the Decrypted output is in JSON format then we can use ```Whole Body (JSON)``` else we can use ```Custom Body```.
 
+![PyCript](https://raw.githubusercontent.com/Anof-cyber-Docs/PyCript/main/image/Whole%20Body%20Example%202.gif?token=GHSAT0AAAAAAB5OOGKCUVH5WYGGGMSN3WMCY6O2WTQ)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VSrrzB83uHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
