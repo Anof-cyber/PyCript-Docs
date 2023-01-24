@@ -3,17 +3,17 @@
 - Load the Encryption and Decryption JavaScript File in the extension
 - Select the Request Type according to your request and encryption
 - Add the URL in Burp Suite Scope
-- Go to Repeater, Proxy Intercept, Proxy History,Intruder, Target
-- You can see a new tab in the reequest message named PyCript
-- If everyting is setup correctly and extnsion is given correct encryption decryption code you see the decrypted text
-- Edit the decrpyted text and send the request
-- The extension will take care of encrpytion of your modified value
+- Go to Repeater, Proxy Intercept, Proxy History, Intruder, Target
+- You can see a new tab in the request message named PyCript
+- If everything is setup correctly and the extension is given the correct encryption decryption code you see the decrypted text
+- Edit the decrypted text and send the request
+- The extension will take care of the encryption of your modified value
 
 # Config
 
 The config tab has all the settings you will be required to perform the encryption and decryption. The PyCript extension encodes the request body of a message in Burp Suite using base64 encoding. It then provides both the headers and encoded body to JavaScript code. The JavaScript code is responsible for decrypting or encrypting the request body. After the JavaScript code is finished, the extension retrieves the updated body and updates the request in Burp Suite.
 
-!>The extension works only on URL added in the burp suite Scope
+!>The extension works only on URLs added in the burp suite Scope
 
 
 
@@ -95,7 +95,7 @@ Content-Length: 77
 {"I8DMuVVrqGFOFsHLCjZDog==":"HgE40uCnUDbOfuat6om5QA==","JWJ3uwqkCOenhQxZuS9ILA==":"FZbf3I/h9ORUV+H6Wzv4gA=="}
 ```
 
-The above request is same as JSON Value but with key and value both are encrypted and the ```JSON Key & Value``` type can be used.
+The above request is the same as JSON Value but with key and value both are encrypted and the ```JSON Key & Value``` type can be used.
 
 ?> **IMPORTANT:** You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each key and value and provide the updated request body.
 ***
@@ -161,7 +161,7 @@ Similarly, you can provide the decrypted request to Sqlmap and configure Sqlmap 
 
 To encrypt and decrypt messages, you will need to choose two separate files; one for encryption and one for decryption.
 
-?> **IMPORTANT:** The extension requires the encryption and decryption file before doing anyting.
+?> **IMPORTANT:** The extension requires encryption and decryption files before doing anything.
 ***
 
 
@@ -186,7 +186,7 @@ The PyCript extension provides the ability to automatically decrypt multiple req
 
 - Navigate to the ```PyCript``` Tab and inside select the ```"Decrypted Requests"```
 
-- It will display all the decrpyted request.
+- It will display all the decrypted requests.
 
 - Select any row or multiple rows Right-click. The extension will allow you to send all the selected decrypted requests to Repeater, Intruder, Scanner or Resend the Request.
 
@@ -202,15 +202,15 @@ The extension allows you to encrypt any string you select within the request and
 
 - Open Burp Suite and navigate to the ```"Proxy", "Target", "Intruder" or "Repeater"``` tab.
 
-- Select anyting within request or response.
+- Select anything within the request or response.
 
-- Right-click on the request you wish to encrpyt and select ```"Extensions"``` from the menu.
+- Right-click on the request you wish to encrypt and select ```"Extensions"``` from the menu.
 
 - From the submenu, select ```"PyCript"```
 
 - Select ```"Encrypt String"``` from the options presented.
 
-- The extension will show a Popup with the encrpyted output for your selected string.
+- The extension will show a Popup with the encrypted output for your selected string.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Hkfqb_npfeg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -218,12 +218,12 @@ The extension allows you to encrypt any string you select within the request and
 
 ## Decrypt String
 
-The extension allows you to decpryt any string you select within the request and response. 
+The extension allows you to decrypt any string you select within the request and response. 
 
 
 - Open Burp Suite and navigate to the ```"Proxy", "Target", "Intruder" or "Repeater"``` tab.
 
-- Select anyting within request or response.
+- Select anything within the request or response.
 
 - Right-click on the request you wish to decrypt and select ```"Extensions"``` from the menu.
 
@@ -236,5 +236,5 @@ The extension allows you to decpryt any string you select within the request and
 
 # Decrypted Request
 
-The tab will is used to store the decrypted reequest. Once you select ```Decrypt Request``` from the menu. The eextension will store the decryptd request here. Later you can select one or multiple row and right click to perfrom the action such as send the request to ```Repeater, Intruder, Scanner, or Send the decrypted request to the server```
+The tab will is used to store the decrypted request. Once you select ```Decrypt Request``` from the menu. The extension will store the decrypted request here. Later you can select one or multiple rows and right-click to perform the action such as send the request to ```Repeater, Intruder, Scanner or Send the decrypted request to the server``
 
