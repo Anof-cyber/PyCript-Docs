@@ -72,6 +72,8 @@ Content-Length: 77
 
 The above request has only value encrypted and the ```JSON Value``` type can be used.
 
+<img src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/main/image/Whole%20Body%20Example%202.gif"/>
+
 ?> **IMPORTANT:** You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each value and provide the updated request body.
 ***
 
@@ -97,6 +99,8 @@ Content-Length: 77
 ```
 
 The above request is the same as JSON Value but with key and value both are encrypted and the ```JSON Key & Value``` type can be used.
+
+
 
 ?> **IMPORTANT:** You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each key and value and provide the updated request body.
 ***
