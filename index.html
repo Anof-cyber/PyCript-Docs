@@ -16,6 +16,17 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
+	    
+	    alias: {
+        '/v0-1/.*_sidebar.md': 'https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/main/_sidebar.md',
+        
+       
+        
+      },
+      name: '<select id="version-selector" name="version" class="sidebar-version-select">' +
+          '<option value="v0.1">edge</value>' +
+         
+        '</select>',
       name: 'PyCript Documentation',
       repo: 'https://github.com/Anof-cyber/PyCript',
       loadSidebar: true,
@@ -28,8 +39,8 @@
 	    namespaces: [
         {
           id: "version",
-          values: ["0.1"],
-	default: "0.1",
+          values: ["v0.1"],
+	default: "v0.1",
           optional: true,
           selector: "#version-selector"
         }
