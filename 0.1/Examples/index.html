@@ -1,0 +1,644 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../Scripts/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>Usage Examples - PyCript Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#flow-of-the-extension" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PyCript Docs" class="md-header__button md-logo" aria-label="PyCript Docs" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PyCript Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Usage Examples
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../Prerequisites/" class="md-tabs__link">
+      Prerequisites
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../installation/" class="md-tabs__link">
+      Installation
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Usage Examples
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../Scripts/" class="md-tabs__link">
+      Writing Custom Scripts
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PyCript Docs" class="md-nav__button md-logo" aria-label="PyCript Docs" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    PyCript Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Prerequisites/" class="md-nav__link">
+        Prerequisites
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Usage Examples
+      </a>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scripts/" class="md-nav__link">
+        Writing Custom Scripts
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="flow-of-the-extension">Flow of the Extension</h1>
+<ul>
+<li>Load the Encryption and Decryption JavaScript File in the extension</li>
+<li>Select the Request Type according to your request and encryption</li>
+<li>Add the URL in Burp Suite Scope</li>
+<li>Go to Repeater, Proxy Intercept, Proxy History, Intruder, Target</li>
+<li>You can see a new tab in the request message named PyCript</li>
+<li>If everything is setup correctly and the extension is given the correct encryption decryption code you see the decrypted text</li>
+<li>Edit the decrypted text and send the request</li>
+<li>The extension will take care of the encryption of your modified value</li>
+</ul>
+<h1 id="config">Config</h1>
+<p>The config tab has all the settings you will be required to perform the encryption and decryption. The PyCript extension encodes the request body of a message in Burp Suite using base64 encoding. It then provides both the headers and encoded body to JavaScript code. The JavaScript code is responsible for decrypting or encrypting the request body. After the JavaScript code is finished, the extension retrieves the updated body and updates the request in Burp Suite.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The extension works only on URLs added in the burp suite Scope</p>
+</div>
+<h2 id="request-type">Request Type</h2>
+<p>The Request Type allows you to select the type of request or message that needs to e encrypted or decrypt.</p>
+<ul>
+<li>
+<h3 id="whole-body-json-and-custom-body">Whole Body (JSON) and Custom Body</h3>
+</li>
+</ul>
+<p>This type can be used if your complete request body is encrypted. The extension will take the body and base64 encode it and will send it to the JavaScript code.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/crypto/myprofile/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">localhost:8000</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Language</span><span class="o">:</span> <span class="l">en-US;q=0.9,en;q=0.8</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">close</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">max-age=0</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">24</span>
+
+KtKB81Oamvuzo9entPFKZQ==
+</code></pre></div>
+<p>The above request has a completely encrypted body. If the Decrypted output is in JSON format then we can use <code>Whole Body (JSON)</code> else we can use <code>Custom Body</code>.</p>
+<p><img src="/image/Whole%20Body%20Example%202.gif"/></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VSrrzB83uHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The only difference between <code>Whole Body (JSON)</code> and <code>Custom Body</code> is Whole Body (JSON) expects the decrypted output in JSON whereas Custom Body doesn't have any validation for output.</p>
+</div>
+<ul>
+<li>
+<h3 id="json-value">JSON Value</h3>
+</li>
+</ul>
+<p>This type can be used if your request body is in JSON Format but only values are encrypted. The extension will go through each value and will perform the encryption decryption on each value one by one. each value will be base64 encoded and will send to the JavaScript code.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/crypto/login/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">localhost:8000</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Language</span><span class="o">:</span> <span class="l">en-US;q=0.9,en;q=0.8</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">close</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">max-age=0</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">77</span>
+
+{&quot;username&quot;:&quot;HgE40uCnUDbOfuat6om5QA==&quot;,&quot;password&quot;:&quot;FZbf3I/h9ORUV+H6Wzv4gA==&quot;}
+</code></pre></div>
+<p>The above request has only value encrypted and the <code>JSON Value</code> type can be used.</p>
+<p><img src="/image/Whole%20Body%20Example%202.gif"/></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each value and provide the updated request body.</p>
+</div>
+<ul>
+<li>
+<h3 id="json-key-value">JSON Key &amp; Value</h3>
+</li>
+</ul>
+<p>This type can be used if your request body is in JSON Format with the key and value both encrypted. The extension will go through each key and value pair and will perform the encryption decryption on each key and value one by one. each key and value will be base64 encoded and will send to the JavaScript code.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/crypto/login/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">localhost:8000</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Language</span><span class="o">:</span> <span class="l">en-US;q=0.9,en;q=0.8</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">close</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">max-age=0</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">77</span>
+
+{&quot;I8DMuVVrqGFOFsHLCjZDog==&quot;:&quot;HgE40uCnUDbOfuat6om5QA==&quot;,&quot;JWJ3uwqkCOenhQxZuS9ILA==&quot;:&quot;FZbf3I/h9ORUV+H6Wzv4gA==&quot;}
+</code></pre></div>
+<p>The above request is the same as JSON Value but with key and value both are encrypted and the <code>JSON Key &amp; Value</code> type can be used.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each key and value and provide the updated request body.</p>
+</div>
+<ul>
+<li>
+<h3 id="custom-request">Custom Request</h3>
+</li>
+</ul>
+<p>The custom request is useful when you need to perform any action using javascript code like the body is encrypted but the key or IV is in the header and you can't use Whole Body (JSON) or Custom Body option.</p>
+<p>The Custom Request type will take the request body and will encode the request body with base64 and will provide it to the JavaScript code. The extension will also take the Request header and which will be also provided to JavaScript code and you can use Javascript code to get the key and IV from the header.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/crypto/myprofile/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">localhost:8000</span>
+<span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Accept-Language</span><span class="o">:</span> <span class="l">en-US;q=0.9,en;q=0.8</span>
+<span class="na">User-Agent</span><span class="o">:</span> <span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">close</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">max-age=0</span>
+<span class="na">Key</span><span class="o">:</span> <span class="l">1234</span>
+<span class="na">Iv</span><span class="o">:</span> <span class="l">1234</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">24</span>
+
+KtKB81Oamvuzo9entPFKZQ==
+</code></pre></div>
+<p>The above request is the same as Whole Body (JSON) and Custom Body but with key and IV in the header hence you can't keep iv and key hardcoded in your JS file. The <code>Custom Request</code> type can be used here to get headers and in JS we can retrieve the key and iv.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The extension will only take the output of the modified body from the JS. If you need to modify the headers as well the extension doesn't support it as of version 0.1.</p>
+</div>
+<ul>
+<li>
+<h3 id="none">None</h3>
+</li>
+</ul>
+<p>This Request type will inform the extension that the current status is OFF and the extension will not try to encrypt or decrypt the request.</p>
+<div class="admonition warning">
+<p class="admonition-title">Tip</p>
+<p>The extension will not allow the selection of the <code>Request Type</code> Unless Encryption and Decryption JS files are not selected.</p>
+</div>
+<h2 id="auto-encrypt">Auto Encrypt</h2>
+<p>The auto encrypts request will allow you to encrypt the request. You can select the tool type for which the request needs to be encrypted. This feature is useful to perform automated scans like Burp Suite Active Scan or SQLMAP.</p>
+<p>If you have an encrypted request and you need to run the burp suite scanner on that request. It's not directly since any payload added in plain text format to any encrypted parameter server will reject the request and will give you an error as decryption at the server side is failed.</p>
+<p>In that case, you can send the decrypted request to the scanner and turn on the Auto Encrypt and also select the Tool Type for the scanner.</p>
+<p>The Scanner will get the decrypted request to add any payload. The extension will encrypt the request (Based on the Request Type selected) before the scanner sends it to the server.</p>
+<p>Similarly, you can provide the decrypted request to Sqlmap and configure Sqlmap to send all requests to the burp proxy. Also, turn on the Auto Encrypt.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The extension will not allow to turn on <code>Auto Encrypt</code> unless <code>Request Type</code> is not selected excluding None. Also at least one <code>Tool type</code> is required</p>
+</div>
+<h2 id="encryption-decryption-file">Encryption Decryption File</h2>
+<p>To encrypt and decrypt messages, you will need to choose two separate files; one for encryption and one for decryption.</p>
+<div class="admonition warning">
+<p class="admonition-title">Tip</p>
+<p>The extension requires encryption and decryption files before doing anything.</p>
+</div>
+<h1 id="additional-features">Additional Features</h1>
+<h2 id="decrypt-request">Decrypt Request</h2>
+<p>The PyCript extension provides the ability to automatically decrypt multiple requests. This eliminates the need for manually decrypting individual requests and then sending them to the scanner. To use this feature:</p>
+<ul>
+<li>
+<p>Open Burp Suite and navigate to the <code>"Proxy", "Target", "Intruder" or "Repeater"</code> tab.</p>
+</li>
+<li>
+<p>Right-click on the request you wish to decrypt and select <code>"Extensions"</code> from the menu.</p>
+</li>
+<li>
+<p>From the submenu, select <code>"PyCript"</code></p>
+</li>
+<li>
+<p>Select <code>"Decrypt Request"</code> from the options presented.</p>
+</li>
+<li>
+<p>The PyCript extension will now decrypt all the requests and will store the decrypted requests in the <code>"Decrypted Requests"</code> tab inside the table.</p>
+</li>
+<li>
+<p>Navigate to the <code>PyCript</code> Tab and inside select the <code>"Decrypted Requests"</code></p>
+</li>
+<li>
+<p>It will display all the decrypted requests.</p>
+</li>
+<li>
+<p>Select any row or multiple rows Right-click. The extension will allow you to send all the selected decrypted requests to Repeater, Intruder, Scanner or Resend the Request.</p>
+</li>
+<li>
+<p>The Resend HTTP Request can send the HTTP request to the server with the decrypted request. You can view that request from the logger or use an upstream proxy to send the request to another Burp Suite.</p>
+</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DWzI7JbPEkI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<h2 id="encrypt-string">Encrypt String</h2>
+<p>The extension allows you to encrypt any string you select within the request and response. </p>
+<ul>
+<li>
+<p>Open Burp Suite and navigate to the <code>"Proxy", "Target", "Intruder" or "Repeater"</code> tab.</p>
+</li>
+<li>
+<p>Select anything within the request or response.</p>
+</li>
+<li>
+<p>Right-click on the request you wish to encrypt and select <code>"Extensions"</code> from the menu.</p>
+</li>
+<li>
+<p>From the submenu, select <code>"PyCript"</code></p>
+</li>
+<li>
+<p>Select <code>"Encrypt String"</code> from the options presented.</p>
+</li>
+<li>
+<p>The extension will show a Popup with the encrypted output for your selected string.</p>
+</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Hkfqb_npfeg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<h2 id="decrypt-string">Decrypt String</h2>
+<p>The extension allows you to decrypt any string you select within the request and response. </p>
+<ul>
+<li>
+<p>Open Burp Suite and navigate to the <code>"Proxy", "Target", "Intruder" or "Repeater"</code> tab.</p>
+</li>
+<li>
+<p>Select anything within the request or response.</p>
+</li>
+<li>
+<p>Right-click on the request you wish to decrypt and select <code>"Extensions"</code> from the menu.</p>
+</li>
+<li>
+<p>From the submenu, select <code>"PyCript"</code></p>
+</li>
+<li>
+<p>Select <code>"Decrypt String"</code> from the options presented.</p>
+</li>
+<li>
+<p>The extension will show a Popup with the Decrypted output for your selected string.</p>
+</li>
+</ul>
+<h1 id="decrypted-request">Decrypted Request</h1>
+<p>The tab will is used to store the decrypted request. Once you select <code>Decrypt Request</code> from the menu. The extension will store the decrypted request here. Later you can select one or multiple rows and right-click to perform the action such as send the request to <code>`Repeater, Intruder, Scanner or Send the decrypted request to the server</code></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+    
+  </body>
+</html>
