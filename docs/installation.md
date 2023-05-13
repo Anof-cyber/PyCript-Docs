@@ -2,8 +2,9 @@
 # Installation 
 
 
-!> Please make sure that all the [prerequisites](Prerequisites.md) mentioned are installed first.
+!!! Warning "Warning"
 
+    Please make sure that all the [prerequisites](Prerequisites.md) mentioned are installed first.
 ## Manual Installation
 
 - Download the [PyCript](https://github.com/Anof-cyber/PyCript) repository from GitHub either by cloning the repository using 
@@ -21,4 +22,9 @@ git clone https://github.com/Anof-cyber/PyCript
 
 ## Burp Suite BApp Store Installation
 
-!> The extension is not available on the Burp Suite BApp Store.
+!!! Info "Info"
+
+    The extension is not available on the Burp Suite BApp Store.
+
+
+

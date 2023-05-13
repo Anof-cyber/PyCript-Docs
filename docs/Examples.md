@@ -13,9 +13,9 @@
 
 The config tab has all the settings you will be required to perform the encryption and decryption. The PyCript extension encodes the request body of a message in Burp Suite using base64 encoding. It then provides both the headers and encoded body to JavaScript code. The JavaScript code is responsible for decrypting or encrypting the request body. After the JavaScript code is finished, the extension retrieves the updated body and updates the request in Burp Suite.
 
-!>The extension works only on URLs added in the burp suite Scope
+!!! Warning "Warning"
 
-
+    The extension works only on URLs added in the burp suite Scope
 
 ## Request Type
 
@@ -42,12 +42,14 @@ KtKB81Oamvuzo9entPFKZQ==
 
 The above request has a completely encrypted body. If the Decrypted output is in JSON format then we can use ```Whole Body (JSON)``` else we can use ```Custom Body```.
 
-<img src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/main/image/Whole%20Body%20Example%202.gif"/>
+<img src="/image/Whole%20Body%20Example%202.gif"/>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VSrrzB83uHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-?> **IMPORTANT:** The only difference between Whole Body (JSON) and Custom Body is Whole Body (JSON) expects the decrypted output in JSON whereas Custom Body doesn't have any validation for output.
-***
+
+!!! tip "Tip"
+
+    The only difference between ```Whole Body (JSON)``` and ```Custom Body``` is Whole Body (JSON) expects the decrypted output in JSON whereas Custom Body doesn't have any validation for output.
 
 
 
@@ -72,11 +74,12 @@ Content-Length: 77
 
 The above request has only value encrypted and the ```JSON Value``` type can be used.
 
-<img src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/main/image/Whole%20Body%20Example%202.gif"/>
+<img src="/image/Whole%20Body%20Example%202.gif"/>
 
-?> **IMPORTANT:** You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each value and provide the updated request body.
-***
 
+!!! tip "Tip"
+
+    You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each value and provide the updated request body.
 
 
 - ### JSON Key & Value
@@ -101,9 +104,9 @@ Content-Length: 77
 The above request is the same as JSON Value but with key and value both are encrypted and the ```JSON Key & Value``` type can be used.
 
 
+!!! tip "Tip"
 
-?> **IMPORTANT:** You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each key and value and provide the updated request body.
-***
+    You can still use Whole Body (JSON) and Custom Body in this type of request but in that case, you will be required to add the logic in your JavaScript code to go through each key and value and provide the updated request body.
 
 
 - ### Custom Request
@@ -132,16 +135,18 @@ KtKB81Oamvuzo9entPFKZQ==
 The above request is the same as Whole Body (JSON) and Custom Body but with key and IV in the header hence you can't keep iv and key hardcoded in your JS file. The ```Custom Request``` type can be used here to get headers and in JS we can retrieve the key and iv.
 
 
-!>The extension will only take the output of the modified body from the JS. If you need to modify the headers as well the extension doesn't support it as of version 0.1.
+!!! tip "Tip"
 
+    The extension will only take the output of the modified body from the JS. If you need to modify the headers as well the extension doesn't support it as of version 0.1.
 
 - ### None
 
 This Request type will inform the extension that the current status is OFF and the extension will not try to encrypt or decrypt the request.
 
 
-!>The extension will not allow the selection of the ```Request Type``` Unless Encryption and Decryption JS files are not selected.
+!!! warning "Tip"
 
+    The extension will not allow the selection of the ```Request Type``` Unless Encryption and Decryption JS files are not selected.
 
 
 ## Auto Encrypt
@@ -156,8 +161,10 @@ The Scanner will get the decrypted request to add any payload. The extension wil
 
 Similarly, you can provide the decrypted request to Sqlmap and configure Sqlmap to send all requests to the burp proxy. Also, turn on the Auto Encrypt.
 
-!>The extension will not allow to turn on ```Auto Encrypt``` unless ```Request Type``` is not selected excluding None Also at least one ```Tool type``` is required
 
+!!! info "Info"
+
+    The extension will not allow to turn on ```Auto Encrypt``` unless ```Request Type``` is not selected excluding None. Also at least one ```Tool type``` is required
 
 
 
@@ -166,9 +173,11 @@ Similarly, you can provide the decrypted request to Sqlmap and configure Sqlmap 
 
 To encrypt and decrypt messages, you will need to choose two separate files; one for encryption and one for decryption.
 
-?> **IMPORTANT:** The extension requires encryption and decryption files before doing anything.
-***
 
+
+!!! warning "Tip"
+
+    The extension requires encryption and decryption files before doing anything.
 
 
 

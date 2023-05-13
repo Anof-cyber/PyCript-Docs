@@ -1,0 +1,23 @@
+site_name: PyCript Docs
+theme:
+  name: material
+  logo: assets/logo.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+
+nav:
+    - Home: index.md
+    - Prerequisites: Prerequisites.md
+    - Installation: installation.md
+    - Usage Examples: Examples.md
+    - Writing Custom Scripts: Scripts.md
+    
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
