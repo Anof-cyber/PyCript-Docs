@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
     <link type="image/png" sizes="96x96" rel="icon" href="https://img.icons8.com/dusk/64/000000/security.png">
- <script src="//unpkg.com/docsify-namespaced@0.1.1/dist/docsify-namespaced.min.js"></script>
+
   
 </head>
 <body>
@@ -16,17 +16,6 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-	    
-	    alias: {
-        '/v0-1/.*_sidebar.md': 'https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/main/_sidebar.md',
-        
-       
-        
-      },
-      name: '<select id="version-selector" name="version" class="sidebar-version-select">' +
-          '<option value="v0.1">edge</value>' +
-         
-        '</select>',
       name: 'PyCript Documentation',
       repo: 'https://github.com/Anof-cyber/PyCript',
       loadSidebar: true,
@@ -36,28 +25,7 @@
         nextText: 'Next',
         
       },
-	    namespaces: [
-        {
-          id: "version",
-          values: ["v0.1"],
-	default: "v0.1",
-          optional: true,
-          selector: "#version-selector"
-        }
-      ],
      
-	    
-	    
-	    search: {
-        paths: 'auto',
-    
-        hideOtherSidebarContent: true,
-        depth: 3,
-        pathNamespaces: ['/v0-1']
-      },
-   
-	    
-	    
       subMaxLevel: 3
 	 
     }
