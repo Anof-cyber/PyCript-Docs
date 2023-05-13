@@ -11,6 +11,7 @@ build:
   tools:
     python: "3.11"
   commands: 
+    - asdf global python 3.11.0
     - python -m mkdocs build --theme material
 
 
