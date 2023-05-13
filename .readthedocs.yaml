@@ -12,6 +12,7 @@ build:
     python: "3.11"
   commands: 
     - asdf global python 3.11.0
+    - pip install mkdocs-material
     - python -m mkdocs build --theme material
 
 
