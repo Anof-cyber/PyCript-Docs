@@ -21,3 +21,6 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
+extra:
+  version:
+    provider: mike
