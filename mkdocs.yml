@@ -1,15 +1,25 @@
 site_name: PyCript Docs
 theme:
   name: material
-  logo: assets/logo.png
+  logo: https://i.ibb.co/RD2rP3V/Py-Cript-Banner-Room.png
+  favicon: https://img.icons8.com/dusk/64/000000/security.png
   features:
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.path
+    - navigation.sections
+    - navigation.tracking
+    - navigation.instant
+    - navigation.indexes 
+    - toc.follow
+    - content.tabs.link
+    
 
 nav:
     - Home: index.md
     - Prerequisites: Prerequisites.md
     - Installation: installation.md
+    - Workflow: workflow.md
     - Usage Examples: Examples.md
     - Writing Custom Scripts: Scripts.md
     
@@ -20,7 +30,27 @@ markdown_extensions:
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
 
 extra:
   version:
     provider: mike
+  social:
+    - icon: fontawesome/brands/twitter 
+      link: https://twitter.com/ano_f_
+    - icon: fontawesome/brands/github 
+      link: https://github.com/Anof-cyber/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/sourav-kalal
+    - icon: fontawesome/brands/medium 
+      link: https://medium.com/@Ano_F_
+
+
+repo_url: https://github.com/Anof-cyber/PyCript
+repo_name: Anof-cyber/PyCript
