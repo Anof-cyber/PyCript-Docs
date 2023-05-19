@@ -43,7 +43,7 @@ The Request Type feature enables you to choose the specific request or message t
         AEIwJOtaQXdO9qzIJFIhEQ==
         ```
 
-        <img src="/assets/Complete%20Body%20-%20Example%201.gif"/>
+        <img src="/0.2/assets/Complete%20Body%20-%20Example%201.gif"/>
 
     === "Example 2"
 
@@ -61,7 +61,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         {"user_id": "W12wkCO+v4IOkEN3ENbRNQ==","key":"mysecretkey12345","iv":"n2r5u8x/A%D*G-Ka"}
         ```
-        <img src="/assets/Complete%20Body%20-%20Example%202.gif"/>
+        <img src="/0.2/assets/Complete%20Body%20-%20Example%202.gif"/>
 
 
 
@@ -85,7 +85,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         {"user_id": "kmcduz+eWvqNbPAq//UQGA=="}
         ```
-        <img src="/assets/Paramter%20Value%20-%20Example%201.gif"/>
+        <img src="/0.2/assets/Paramter%20Value%20-%20Example%201.gif"/>
 
     === "Example 2"
 
@@ -101,7 +101,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         ```
 
-        <img src="/assets/Paramter%20Value%20-%20Example%202.gif"/>
+        <img src="/0.2/assets/Paramter%20Value%20-%20Example%202.gif"/>
 
 
     === "Example 3"
@@ -122,7 +122,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         ```
 
-        <img src="/assets/Paramter%20Value%20-%20Example%203.gif"/>
+        <img src="/0.2/assets/Paramter%20Value%20-%20Example%203.gif"/>
 
 
 === "Parameter Key and Value"
@@ -148,7 +148,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         ```
 
-        <img src="/assets/Paramter%20Key%20and%20value%20-%20Example%201.gif"/>
+        <img src="/0.2/assets/Paramter%20Key%20and%20value%20-%20Example%201.gif"/>
 
 
 === "Custom Request"
@@ -177,7 +177,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         ```
 
-        <img src="/assets/Custom%20Request%20-%20Example%201.gif"/>
+        <img src="/0.2/assets/Custom%20Request%20-%20Example%201.gif"/>
 
 
 
@@ -207,7 +207,7 @@ The Request Type feature enables you to choose the specific request or message t
 
         ```
 
-        <img src="/assets/Edit%20Header%20-%20Example%201.gif"/>
+        <img src="/0.2/assets/Edit%20Header%20-%20Example%201.gif"/>
 
 
 
