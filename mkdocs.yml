@@ -50,7 +50,8 @@ extra:
       link: https://www.linkedin.com/in/sourav-kalal
     - icon: fontawesome/brands/medium 
       link: https://medium.com/@Ano_F_
-
+    - icon: fontawesome/brands/youtube
+      link: https://youtu.be/J8KE5VR8yDk?si=C97g0DH5cCoUGj0e
 
 repo_url: https://github.com/Anof-cyber/PyCript
 repo_name: Anof-cyber/PyCript
