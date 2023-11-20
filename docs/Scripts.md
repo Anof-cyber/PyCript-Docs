@@ -142,6 +142,11 @@ java -jar user/provided/java/file/path/encryption.jar -d bas64-encodeed-encrypte
 
 The custom request functionality remains unchanged, with the addition of the -h flag to include the request header in a list/array format. Unlike the -d flag, the -h flag does not contain any Base64-encoded data.
 
+!!! Warning "Warning"
+
+    
+    From the PyCript version 0.3 -h flag will be provided in base64 encoded format same as -d flag. Make sure to modify the scipt to handle the same. 
+
 
 ```javascript
 [POST /crypto/myprofile/ HTTP/1.1, Host: localhost:8000, Accept-Encoding: gzip, deflate, Accept: */*, Accept-Language: en-US;q=0.9,en;q=0.8, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36, Connection: close, Key: 1234, Iv: 1234, Cache-Control: max-age=0, Content-Type: application/x-www-form-urlencoded, Content-Length: 24]
