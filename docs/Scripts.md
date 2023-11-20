@@ -128,15 +128,15 @@ When implementing the Custom Request feature in your Burp Suite extension, there
 
 
 ```terminfo
-node user/provided/javascript/file/path/encryption.js -d bas64-encodeed-encrypted-request-body -h [[POST /crypto/user/ HTTP/1.1, Host: localhost:8000, Key: 1234, Iv: 1234]
+node user/provided/javascript/file/path/encryption.js -d bas64-encodeed-encrypted-request-body -h W1BPU1QgL2NyeXB0by91c2VyLyBIVFRQLzEuMSwgSG9zdDogbG9jYWxob3N0OjgwMDAsIEtleTogMTIzNCwgSXY6IDEyMzRd
 ```
 
 ```terminfo
-python user/provided/python/file/path/encryption.py -d bas64-encodeed-encrypted-request-body -h [[POST /crypto/user/ HTTP/1.1, Host: localhost:8000, Key: 1234, Iv: 1234]
+python user/provided/python/file/path/encryption.py -d bas64-encodeed-encrypted-request-body -h W1BPU1QgL2NyeXB0by91c2VyLyBIVFRQLzEuMSwgSG9zdDogbG9jYWxob3N0OjgwMDAsIEtleTogMTIzNCwgSXY6IDEyMzRd
 ```
 
 ```terminfo
-java -jar user/provided/java/file/path/encryption.jar -d bas64-encodeed-encrypted-request-body -h [[POST /crypto/user/ HTTP/1.1, Host: localhost:8000, Key: 1234, Iv: 1234]
+java -jar user/provided/java/file/path/encryption.jar -d bas64-encodeed-encrypted-request-body -h W1BPU1QgL2NyeXB0by91c2VyLyBIVFRQLzEuMSwgSG9zdDogbG9jYWxob3N0OjgwMDAsIEtleTogMTIzNCwgSXY6IDEyMzRd
 ```
 
 
@@ -145,7 +145,7 @@ The custom request functionality remains unchanged, with the addition of the -h 
 !!! Warning "Warning"
 
     
-    From the PyCript version 0.3 -h flag will be provided in base64 encoded format same as -d flag. Make sure to modify the scipt to handle the same. 
+    From the PyCript version 0.3 -h flag will be provided in base64 encoded format same as -d flag. Make sure to modify the script to handle the same. 
 
 
 ```javascript
@@ -168,7 +168,7 @@ The custom request functionality remains unchanged, with the addition of the -h 
 
     args = parser.parse_args()
     ciphertext = b64decode(args.data).decode('utf-8')
-    header = args.header
+    header = 64decode(args.header).decode('utf-8')
 
     ## Your encryption logic
 
@@ -189,7 +189,7 @@ The custom request functionality remains unchanged, with the addition of the -h 
 
     const options = program.opts();
     const requestbody = Buffer.from(options.data, 'base64').toString('utf8');
-    const header = options.header
+    const header = Buffer.from(options.header, 'base64').toString('utf8');
 
     'Your encryption and decryption logic should be here'
 
@@ -212,12 +212,13 @@ The custom request functionality remains unchanged, with the addition of the -h 
                 base64Ciphertext = args[i + 1];
             }
             if ("-h".equals(args[i])) {
-                String headerStr = args[i + 1];
+                String headerbase64 = args[i + 1];
             }
         }
 
         try {
             String ciphertext = new String(Base64.getDecoder().decode(base64Ciphertext), StandardCharsets.UTF_8);
+            String header = new String(Base64.getDecoder().decode(headerbase64), StandardCharsets.UTF_8);
             
             /// You encryption decryption logic
 
