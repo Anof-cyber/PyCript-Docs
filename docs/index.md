@@ -28,5 +28,5 @@ The Pycript extension for Burp Suite is a valuable tool for penetration testing 
 ### Video
 
 <div class="video-wrapper">
-  <iframe width="1280" height="720" src="https://youtu.be/J8KE5VR8yDk?si=C97g0DH5cCoUGj0e" frameborder="0" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/J8KE5VR8yDk?si=C97g0DH5cCoUGj0e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
