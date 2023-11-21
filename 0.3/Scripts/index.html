@@ -856,7 +856,7 @@
 
 <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">b64decode</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-<span class="n">header</span> <span class="o">=</span> <span class="mi">64</span><span class="n">decode</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">header</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">header</span> <span class="o">=</span> <span class="n">b64decode</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">header</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 
 <span class="c1">## Your encryption logic</span>
 
@@ -1044,6 +1044,10 @@
 <li>Execute the same command in your terminal or CMD.</li>
 </ol>
 <p>By performing these steps, you can verify the functionality of the encryption or decryption process outside of the extension environment.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The version 0.3 comes with logger support for debug. You can click on the Log tab and enable logging to see the background command execution for debugging.</p>
+</div>
 <h2 id="demo-code">Demo Code</h2>
 <p>If you are looking for demo encryption decryption code for common type of encryption or logic you can get it from the <a href="https://github.com/Anof-cyber/PyCript-Template">PyCript Template</a></p>
 
