@@ -168,7 +168,7 @@ The custom request functionality remains unchanged, with the addition of the -h 
 
     args = parser.parse_args()
     ciphertext = b64decode(args.data).decode('utf-8')
-    header = 64decode(args.header).decode('utf-8')
+    header = b64decode(args.header).decode('utf-8')
 
     ## Your encryption logic
 
@@ -386,6 +386,10 @@ If you encounter difficulties decrypting or encrypting the request within the ex
 2. Execute the same command in your terminal or CMD.
 
 By performing these steps, you can verify the functionality of the encryption or decryption process outside of the extension environment.
+
+!!! Info "Info"
+
+    The version 0.3 comes with logger support for debug. You can click on the Log tab and enable logging to see the background command execution for debugging.
 
 
 

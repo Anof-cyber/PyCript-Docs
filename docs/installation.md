@@ -24,7 +24,7 @@ git clone https://github.com/Anof-cyber/PyCript
 
 !!! Info "Info"
 
-    The extension is not available on the Burp Suite BApp Store.
+    You can now install the extension from the Burp Suite BApp Store.
 
 
 
