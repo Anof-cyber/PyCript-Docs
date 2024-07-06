@@ -8,6 +8,13 @@ The configuration tab contains all the necessary settings to enable encryption a
 
     This extension is designed to operate exclusively on URLs that have been included within the target scope of Burp Suite.
 
+
+!!! Warning "Warning"
+
+    PyCript version 0.4 change the use of encrpytion decryption langague as well how it pass data to the encrpytion decryption script over command line argmunet.
+    Older script will not work with new PyCript. Check the "Select Language" and "Writing Custom Scripts" page.
+
+
 ### Request Type
 
 The Request Type feature enables you to choose the specific request or message type that requires encryption or decryption.
@@ -284,6 +291,8 @@ Upon selecting the PyCript submenu, you will be presented with three distinct op
 * Decrypt String: With this option, you can select any data within the request and response. PyCript will then show you the decrypted version of the selected string, providing a way to analyze the decrypted data.
 
 * Encrypt String: This option allows you to encrypt selected data within the request and response. PyCript will show you the encrypted version of the selected string.
+
+<img src="/0.4/assets/string.png"/>
 
 
 !!! Info "Info"

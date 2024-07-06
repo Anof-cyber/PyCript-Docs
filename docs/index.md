@@ -22,6 +22,7 @@ The Pycript extension for Burp Suite is a valuable tool for penetration testing 
 ### Documentation
 - #### [Prerequisites](Prerequisites.md)
 - #### [Installation](installation.md)
+- #### [Select Language](Select-Language.md)
 - #### [Usage Examples](Examples.md)
 - #### [Writing Custom Scripts](Scripts.md)
 

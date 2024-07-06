@@ -35,5 +35,5 @@ jobs:
         git config --global user.email "$(git log -n 1 --pretty=format:%ae)"
         git fetch origin gh-pages --depth=1
         GIT_COMMITTER_NAME=ci-bot GIT_COMMITTER_EMAIL=ci-bot@example.com \
-        mike deploy --push --update-aliases 0.3 latest
+        mike deploy --push --update-aliases 0.4 latest
         

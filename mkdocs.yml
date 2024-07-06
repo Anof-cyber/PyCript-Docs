@@ -20,8 +20,10 @@ nav:
     - Prerequisites: Prerequisites.md
     - Installation: installation.md
     - Workflow: workflow.md
+    - Select Language: Select-Language.md
     - Usage Examples: Examples.md
     - Writing Custom Scripts: Scripts.md
+    
     
 markdown_extensions:
   - admonition
