@@ -31,9 +31,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install mkdocs-material
         pip install mike
-        git config --global user.name anof-cyber
-        git config --global user.email "$(git log -n 1 --pretty=format:%ae)"
-        git fetch origin gh-pages --depth=1
-        GIT_COMMITTER_NAME=ci-bot GIT_COMMITTER_EMAIL=ci-bot@example.com \
+        git config --global user.email "action@github.com"
+        git config --global user.name 'Actions'
         mike deploy --push --update-aliases 0.4 latest
         
