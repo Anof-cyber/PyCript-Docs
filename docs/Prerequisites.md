@@ -7,16 +7,13 @@ PyCript provides the flexibility to implement custom encryption and decryption a
 * Burp Suite configured with Jython to install the Python extension 
 
 
-!!! info "Note"
-
-    
-    PyCript v0.4 allow any language as an encryption-decryption script. You can use a script like Python JavaScript, and Java as older versions as well as other languages like C, Go, C++ or any language even Bash or Powershell scripts as well, With version 0.4 there is no restriction in the language.
-
 
 !!! info "Note"
 
     
-    PyCript v0.4 change the working of the extension, the older script of encrpytion and decryption will not work with version 0.4
+    PyCript v1.0 change the working of the extension, the older script of encryption and decryption will not work with version 1.0
+	
+
 	
 
 !!! info "Note"

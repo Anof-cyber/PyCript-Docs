@@ -1,76 +1,51 @@
 ## Flow of the Extension
 
 
-PyCript utilizes the system command to run encryption and decryption scripts that are specified by the user. Depending on the chosen configuration, the extension acquires HTTP request data such as the body, string, parameters, headers, and so on, and then transfers the information to the designated user-provided encryption decryption file. Once the command has been executed, the extension anticipates the command output, which should be either encrypted or decrypted data. The extension then proceeds to read the command output and adjust the request/response within Burp Suite.
-
+PyCript utilizes system commands to run user-specified encryption and decryption scripts. In the new version, the extension passes the HTTP request body or parameters as byte arrays and headers as plain raw text, storing them in a temporary file. The file also separates headers and body/parameters using the marker ``\n--BODY_END--\n``. Instead of reading the script's output directly, PyCript executes the system command with the path to the temporary file provided to the user script. After execution, the extension reads the updated request or response data from the same temporary file, converting the byte array (body/parameters) back to strings and directly using the updated headers. These updated values are then replaced in the request or response within Burp Suite.
 
 ## Commands
 
 
-The PyCript extension generates a temp file (from version 0.4) and stores the request body/parameter and header in JSON format. The extension passes the temp file location to the encryption-decryption script using -d command line argument. The JSON data will be based on the PyCript configuration.
+The PyCript extension generates a temp file (from version 1.00) and stores the request body/parameter and header in raw text + byte array format. The extension passes the temp file location to the encryption-decryption script using -d command line argument. The JSON data will be based on the PyCript configuration.
 
 
 * node script.js -d tempfile-path
 * python script.py -d tempfile-path
 * java -jar script.jar -d tempfile-path
 
-The temp file will have encrypted/decrpyted paramter or request body in JSON data key and request header in JSON header key as below.
+The temp file will have encrypted/decrypted parameter or request body and request header in below format.
 
-```json
+```text
     
-{"data":"base64-encoded-paramter/or/body","header":"base64-encoded-headers"}
+[118, 75, 85, 86, 118, 111, 50, 57, 112, 100, 76, 50, 105, 67, 101, 109, 82, 97, 116, 115, 85, 80, 122, 122, 102, 89, 106, 57, 43, 110, 81, 75, 101, 99, 90, 43, 83, 87, 51, 70, 75, 65, 117, 66, 90, 107, 82, 101, 77, 75, 105, 80, 82, 74, 107, 112, 105, 53, 86, 66, 122, 89, 119]
+--BODY_END--
+POST /complete-body/api/2 HTTP/1.1
+Host: 127.0.0.1:8000
+Content-Length: 64
+sec-ch-ua-platform: "Windows"
     
 ```
 
 
 !!! info "Note"
 
-    header will only be present if Custom request is selected in PyCript (Check writing custom script for details)
+    header is only available for request encryption decryption not for response.
 
 !!! info "Note"
 
-    both header and data value will be base64 encoded prevent errors that may occur due to special characters. Make sure to decode the value in your script.
+    Header can only be edited if Request Type is Complete Body.
 
 !!! info "Note"
     
-    Based on the configuration provided, this extension will offer different values for the JSON data key.
+    In case of response encryption/decryption temp file will be no data after ``--BODY_END--``as no headers are there for response.
 
 
-* Complete Body - The extension will take the request/response body and will pass the value to JSON data key
-- Paramter Value - PyCript is designed to iterate through the request/response parameter values and pass each value to JSON data key. It will then update each value one by one.
+* Complete Body - The extension will take the request/response body convert it in byte array format, take raw plaintext header, save the file in above format.
+- Parameter Value - PyCript is designed to iterate through the request/response parameter values and convert it in byte array format take raw plaintext header, save the file in above format. It will then update each value one by one.
 
-- Paramter key and value - The PyCript extension adopts a similar approach to that of parameter value. It iterates through each parameter name and value, passing them one by one to the script for updating.
-
-
-PyCript offers two methods to work with headers. The first method enables you to read headers in your script, which is useful if your application sends the encryption key or initialization vector (IV) in the header and each request has a different key or IV. However, this method does not allow you to update the header. The extension expects the script to only return the updated value of JSON data key. Additionally, the JSON header key will be in a list/array format provided by Burp APIs.
-
-The second method allows you to update the headers as well and can be useful where some application implementat the signature verification in headers that store the signaure like hash of the request body and won't allow you edit the paramter as signature mismach.
-
-1. Read Headers
-    * When we select Custom Request in Request Type the temp file will have header in array format like: ``['GET / http/1.1','Host: localhost']``
-        * Remember it will be in base64 format so get array first base64 decode the value
-        
-2. Edit Headers
-    * When we select Custom Request(Edit Header) in Request Type the temp file will have header in raw HTTP format like
-        * Remember it will be in base64 format so get raw format first base64 decode the value.
-
-    ```html
-    POST / HTTP/1.1
-    Host: google.com
-    Accept-Encoding: gzip, deflate, br
-    Accept: */*
-    Accept-Language: en-US;q=0.9,en;q=0.8
-    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.127 Safari/537.36
-    Connection: close
-    Cache-Control: max-age=0
-    Content-Type: application/x-www-form-urlencoded
-    Content-Length: 9
-
-    ```
-    
+- Parameter key and value - The PyCript extension adopts a similar approach to that of parameter value. It iterates through each parameter name and value and convert it in byte array format take raw plaintext header, save the file in above format, passing them one by one to the script for updating.
 
 
-    
 
 
 ## Usage
@@ -92,7 +67,7 @@ It is important to verify the supported request parameters or content types by P
 === "Body Parameters"
     
 
-    The PyCript extension leverages the APIs offered by Burp Suite to examine get and body parameters. However, there may be situations where its performance is suboptimal when faced with encrypted or encoded parameters containing multiple `=` characters. If you encounter challenges in parsing such requests, it is recommended to use the complete body or custom request options and incorporate customized parsing into your script.
+    The PyCript extension leverages the APIs offered by Burp Suite to examine get and body parameters. However, there may be situations where its performance is suboptimal when faced with encrypted or encoded parameters containing multiple `=` characters. If you encounter challenges in parsing such requests, it is recommended to use the complete body options and incorporate customized parsing into your script.
 
     ```http
     POST /crypto/myprofile?username=KtKB81Oamvuzo9entPFKZQ%3d%3d&password=KtKB81Oamvuzo9entPFKZQ%3d%3d HTTP/1.1
@@ -130,5 +105,5 @@ It is important to verify the supported request parameters or content types by P
 
 !!! info "Info"
 
-    The current extension does not offer direct support for parsing multipart requests for parameters. However, you have the option to manually parse the request body using either the complete body or a custom request method within your script.
+    The version 1.0 support multipart form data as well. Multi part form can have file upload data as well, It is recommended to add the file upload parameter name in the parameter exclusion list.
 
