@@ -655,11 +655,11 @@
 <ul>
 <li>
 <p>Click on the Select Language Binary Path button and select the language binary.</p>
-<p><img src="/0.4/assets/select-lang.png"/></p>
+<p><img src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/refs/heads/gh-pages/0.4/assets/select-lang.png"/></p>
 </li>
 <li>
 <p>Or you can paste the full path directly into the text box.</p>
-<p><img src="/0.4/assets/type-lang.png"/></p>
+<p><img src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/refs/heads/gh-pages/0.4/assets/type-lang.png"/></p>
 </li>
 </ul>
 <p>This is only if you don't have language in your system env and get an error as command not found such as python not found but it is installed. </p>
@@ -675,10 +675,13 @@
 </ul>
 <h3 id="binary">Binary</h3>
 <p>If you are providing an encryption-decryption file as binary like compiled code from C C++ or Go language or any other like C# etc. The compiled code doesn't need any language like python script.exe etc.</p>
-<p>For compiled binary, you can keep the language as empty, and make sure the text box is empty and does not have any value. The extension will run the executable directly.</p>
+<p>For compiled binary, you can click on the Clear Language Selection to remove it, directly removing just from the text will not work as language path are persistent. The extension will run the executable directly.</p>
 <h3 id="notes">Notes</h3>
 <ul>
-<li>You cannot have separate languages for encryption and decryption like encryption script is in Python and decryption in Java or any other both should be in the same language.</li>
+<li>You cannot have separate languages for encryption and decryption like encryption script is in Python and decryption in Java or any other both should be in the same language.<ul>
+<li>You can have different language if its compiled code like for Windows EXE one is C++ one in GO or C# etc.</li>
+</ul>
+</li>
 <li>The same is true for the request and response, you cannot have both encryption decryption scripts for requests in Python and for response both scripts are in another language.</li>
 <li>When using bash script you cannot use Windows WSL. Path for WSL and windows are different.</li>
 </ul>

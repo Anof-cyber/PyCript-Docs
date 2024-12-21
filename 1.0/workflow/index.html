@@ -661,7 +661,7 @@ sec-ch-ua-platform: &quot;Windows&quot;
 </div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>In case of response encryption/decryption temp file will be no data after <code>--BODY_END--</code>as no headers are there for response.</p>
+<p>In case of response encryption/decryption temp file will have no data after <code>--BODY_END--</code> as no headers are there for response.</p>
 </div>
 <ul>
 <li>Complete Body - The extension will take the request/response body convert it in byte array format, take raw plaintext header, save the file in above format.</li>
@@ -672,6 +672,7 @@ sec-ch-ua-platform: &quot;Windows&quot;
 <p>Parameter key and value - The PyCript extension adopts a similar approach to that of parameter value. It iterates through each parameter name and value and convert it in byte array format take raw plaintext header, save the file in above format, passing them one by one to the script for updating.</p>
 </li>
 </ul>
+<p><img alt="PyCript Workflow" src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/refs/heads/main/Image/flow.gif" /></p>
 <h2 id="usage">Usage</h2>
 <ul>
 <li>Start by loading the PyCript extension into Burp Suite.</li>
