@@ -1,16 +1,22 @@
 ### Working of the Extension
 
-The extension utilizes user provided encrpyption decrpytion files for executing encryption and decryption operations by running system commands.
+The extension utilizes user provided encryption decryption files for executing encryption and decryption operations by running system commands.
 
 
+## Demo Code
+If you are looking for demo encryption decryption code for common type of encryption or logic you can get it from the [PyCript Template](https://github.com/Anof-cyber/PyCript-Template)
 
 
 !!! Warning "Warning"
 
-    PyCript before version 0.4 used to pass encrpyted paramter/body etc over -d argument in bass64 format and -h for header in base64 format.
-    from version 0.4 there will be not -h argument, also -d will not have parameter/body.[Check issue for more details](https://github.com/Anof-cyber/PyCript/issues/5)
+    PyCript version 1.0 always pass headers along with body or parameter. Where Headers are Editable with Complete Body Type. Older PyCript Custom Script will not work.
 
-PyCript expect user to provide encryption decryption code file, the code langauge could be anything Like Python, Java, JavaScript, Go, Bash script, Powershell script, C/C++ or Any. Check [Select Language](/latest/Select-Language/) page for more details.
+
+!!! Warning "Warning"
+
+    PyCript version 1.0 use Byte array as parameter/body  value like [80, 53, 50] instead of Base64.
+
+PyCript expect user to provide encryption decryption code file, the code languages could be anything Like Python, Java, JavaScript, Go, Bash script, Powershell script, C/C++ or Any. Check [Select Language](/latest/Select-Language/) page for more details.
 
 
 !!! Info "Info"
@@ -20,19 +26,74 @@ PyCript expect user to provide encryption decryption code file, the code langaug
 
 !!! Info "Info"
 
-    Check the Dummy Code repository [PyCript Template](https://github.com/Anof-cyber/PyCript-Template/) Has example codes in  Python, Go, Bash, Powershell, JavaScript and Java
+    Check the Dummy Code repository [PyCript Template](https://github.com/Anof-cyber/PyCript-Template/) Has example codes in  JavaScript
 
 
 PyCript run system command to execute the script or binary provided for encryption and decryption. User is suppose to provide the language path. Check [Select Language](/latest/Select-Language/) page for more details.
 
-Next user is suppose to provide the encrpytion decrpytion file path. Later based on the setting on PyCript config tab, the extension will provided the encrpyted decrpyted body/paramter/header to the script.
+Next user is suppose to provide the encryption decryption file path. Later based on the setting on PyCript config tab, the extension will provided the encrypted decrypted body/parameter/header to the script.
 
 
-The extension will take the encrypted/plaintext parameter/body create a temp file in the OS and add the encrypted/plaintext parameter/body in the temp file JSON format. The data will be base64 encoded by extension to avoid special characters.
+### PyCript Flow for Request Decryption
 
-```json
-{"data":"cGxhaW50ZXh0"}
-```
+- Take Request body [If Request Type is Complete Body], Convert it into the Byte Array format like [80, 44, 56].
+    - If Request Type is Parameter Value or Parameter Key Value, PyCript will loop each parameter from Script. Convert to Byte Array Format.
+- PyCript create a Temp file, Save the Byte Array body/parameter/Parameter Key along with Plain with Raw Header and will use ``--BODY_END--`` to separate them.
+
+Example Temp Files with Original Request in Burp Suite:
+
+Example Request in Burp Suite
+
+    ```http
+    POST / HTTP/2
+    Host: google.com
+    Accept-Encoding: gzip, deflate, br
+    Accept: */*
+    Accept-Language: en-US;q=0.9,en;q=0.8
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36
+    Cache-Control: max-age=0
+    Content-Type: application/x-www-form-urlencoded
+    Content-Length: 16
+
+
+    EnCRYPTED-BODY
+    ```
+
+Example Temp File Create By PyCript
+
+    [69, 110, 67, 82, 89, 80, 84, 69, 68, 45, 66, 79, 68, 89]
+    --BODY_END--
+    POST / HTTP/2
+    Host: google.com
+    Accept-Encoding: gzip, deflate, br
+    Accept: */*
+    Accept-Language: en-US;q=0.9,en;q=0.8
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36
+    Cache-Control: max-age=0
+    Content-Type: application/x-www-form-urlencoded
+    Content-Length: 16
+
+In case of Parameter Key or Parameter Key value is used, for each parameter and key a temp file will be created by PyCript and each will have Byte array instead of Body Byte Array. 
+
+
+You can convert it back to string before decryption and encryption like below Python and JavaScript example code
+
+=== "Python"
+
+    ```python
+    ascii_values = [69, 110, 67, 82, 89, 80, 84, 69, 68, 45, 66, 79, 68, 89]
+    result = ''.join(chr(value) for value in ascii_values)
+    print(result)
+    ```
+
+=== "NodeJS"
+
+    ```javascript
+    const asciiValues = [69, 110, 67, 82, 89, 80, 84, 69, 68, 45, 66, 79, 68, 89];
+    const result = String.fromCharCode(...asciiValues);
+    console.log(result);
+    ```
+- Once the temp file is created PyCript  will execute the user provided encryption/decryption script and will provide the path of the temp file to user script like:
 
 
 ```terminfo
@@ -42,72 +103,96 @@ The extension will take the encrypted/plaintext parameter/body create a temp fil
 
 #### Command Line Argument for Body/Parameters
 
-The extension utilizes the -d command line argument to pass the full path of the temp file storing the body or parameters to the encryption/decryption code. If you are writing a script, ensure that your script supports command line arguments with the -d flag.
+The extension utilizes the -d command line argument to pass the full path of the temp file storing the Byte body or parameters along with Plain text headers to the encryption/decryption code. If you are writing a script, ensure that your script supports command line arguments with the -d flag.
 
 
-#### Base64 Encoding in temp file JSON
+The value provided with the -d argument will be the path of the temp file. The temp file will split the parameter/body and Header with `--BODY_END--`. Your script need to split the data with divider `--BODY_END--` to get parameter/body separately and headers separately. Once one your script can convert the Byte to String for body/parameter value.
 
-The value provided with the -d argument will be the path of the temp file. The temp file will have a JSON format where ``data`` key in the JSON will store the parameter/body in base64 format. Even if your original request is already in base64, the extension will perform base64 encoding again and provide the encoded value to your code. To obtain the original value of your request body or parameter, you need to decode the base64 value in your code.
+#### Byte array for String Consistency
 
-
-#### Base64 Encoding for String Consistency
-
-The extension performs base64 encoding to ensure consistency and avoid any string-related issues, such as spaces or special characters.
-
+The extension uses Byte array from version 1.0 to support binary data, Non ASCII data in request body.
 
 #### Performing Actions and Adding Logic
 
-Your code can perform any action or add any logic to the provided value. The extension will read the output of the system command, so it is essential that your code prints the updated value accordingly.
+Your code can perform any action or add any logic to the provided value. Once your script is done with the changes on request body/parameter and header. your script should again change the request body/parameter in same byte array format.
 
+Save the updated request in the same temp file provided on -d argument by the PyCript. Updated request should be in same format like:
 
+```http
+[69, 110, 67, 82, 89, 80, 84, 69, 68, 45, 66, 79, 68, 89]
+--BODY_END--
+POST / HTTP/2
+Host: google.com
+Accept-Encoding: gzip, deflate, br
+Accept: */*
+Accept-Language: en-US;q=0.9,en;q=0.8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36
+Cache-Control: max-age=0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 16
+```
 
-
-#### Consistency Across Request Types and Response Types
-
-This approach and code structure apply to all request types and response types in the extension, except for the "Custom Request" and "Custom Request (Edit Header)" types.
+- PyCript validate if command to execute encryption/decryption had any error, If not will try to read the same temp file to get updated request. Convert the Byte array for Parameter/Body to String and Updated the Request headers and Body/parameter in request.
 
 #### Encryption and Decryption Code
 
 The same logic described above is applicable to encryption and decryption code as well. Ensure that your code follows the specified format and guidelines for encryption and decryption operations.
 
-#### Output Format
+#### Notes
 
-The output or print statement provided by your code will be read by the extension, and it should be in the original format, not in base64 except for "Custom Request (Edit Header)". Make sure your code returns the result in the expected format.
+- All Request Type will have headers in the temp file. Your script can read header header in all Request Type
+- Only Request Type Complete Body allows your script to provide ability to Provide updated header so PyCript can update header as well. 
+- Even if you select Request Type as Parameter Value or Parameter Key Value, where your script can only read header cannot provide updated headers. Your script must add `--BODY_END--` in the temp file.
+- Response encryption decryption does get header. Your script will only have Response Body or Parameters not header but your script must add `--BODY_END--` in the temp file.
+- PyCript will always add `--BODY_END--` at the end of Parameter/Body even if header is not there. It always recommended to split the request to remove the `--BODY_END--` even if header is not here like for Response.
 
 
-!!! Warning "Warning"
-
-    There should not be more than one print statement or output in your code. The extension relies on reading the system command output, so having multiple print statements or outputs can cause unexpected behavior.
 
 
 === "Python"
 
     ``` python
-    import argparse
-    from base64 import b64decode,b64encode
     import json
+    from pathlib import Path
+    import argparse
 
-    # Create an argument parser
-    parser = argparse.ArgumentParser(description='Process data argument')
-    parser.add_argument('-d', '--data', help='File path with plaintext data + base64 in JSON format')
+    # Function to handle AES decryption
+    def decrypt_aes(ciphertext):
+        # your logic to decrypt the ciphertext
+        decrypted = ciphertext
+        return decrypted
 
-    # Parse the arguments
+    # Function to read and parse the header
+    def read_parse_header(headers_raw):
+        # Logic to edit header if needed
+        return headers_raw
+
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Process encrypted/decrypted data.')
+    parser.add_argument('-d', '--data', required=True, help='Path to temp file containing request/response data')
     args = parser.parse_args()
 
-    ## Read the temp file from -d path
-    with open(args.data, 'r') as file:
-        content = json.load(file)
+    # Resolve file path and read the file
+    file_path = Path(args.data).resolve()
+    data = file_path.read_text(encoding='utf-8')
 
-    # get the data key from the JSON    
-    cihper_or_plaintext_in_base64 = content.get("data")
+    # Split the data into body and header
+    body_end_marker = '\n--BODY_END--\n'   # Marker to separate body and header, remove the new line character as well
+    byte_array_str, headers_raw = data.split(body_end_marker)
 
-    # Base64 decode to the original data 
-    cihper_or_plaintext = b64decode(cihper_or_plaintext_in_base64).decode('utf-8')
+    # Convert byte array string to bytes
+    byte_array = json.loads(byte_array_str.strip())
+    ciphertext = bytes(byte_array).decode('utf-8')   # convert byte array to string to get original ciphertext/plaintext same as burp Suite. or you can do ''.join(chr(value) for value in byte_array_str)
 
 
-    ## Your encryption logic
+    # Decrypt the ciphertext
+    original_text = decrypt_aes(ciphertext)
+    # Parse and update the header
+    updated_header = read_parse_header(headers_raw)
 
-    print(output)
+    updated_output_byte = [ord(char) for char in original_text] # Convert the updated string to byte array, only the data, parameter or body, not the header
+    output = f"{json.dumps(updated_output_byte)}{body_end_marker}{updated_header}"  # create the same format as byte array string \n--BODY_END--\n Plaintext header
+    file_path.write_text(output, encoding='utf-8') # Write back to the same file , you need to overwrite to replace old request with new in the temp file.
     ```
 
 === "JavaScript"
@@ -125,259 +210,46 @@ The output or print statement provided by your code will be read by the extensio
     program.parse(process.argv);
     const options = program.opts();
     
-    // Read the -d value
     const filePath = options.data;
+    const absoluteFilePath = path.resolve(filePath); // Get the absolute path of the file FROM -d option
+    var data = fs.readFileSync(absoluteFilePath, 'utf8')  // Read the file data
+    const bodyEndMarker = '\n--BODY_END--\n';  // Marker to separate body and headers
+    const [byteArrayStr, headersRaw] = data.split(bodyEndMarker); // Split the data into byte array and headers
 
-    // reolve the full of -d provided path to avoid error in reading file.
-    const absoluteFilePath = path.resolve(filePath);
-    
-    // read the file.
-    var data = fs.readFileSync(absoluteFilePath).toString();
+    const byteArray = JSON.parse(byteArrayStr.trim())  
+    const buffer = Buffer.from(byteArray); // Convert byte array to Buffer
+    const ciphertext = buffer.toString('utf8') // convert it string 
 
-    //parse the json from the file
-    const jsonData = JSON.parse(data);
 
-    // get the JSON data key value
-    const base64Data = jsonData.data; 
+    // call the functions to handle decrpytion, headers 
+    const originalText = Decryption(ciphertext);
+    const updatedHeader = Read_parse_Header(headersRaw);
 
-    // base64 decode the value to get original data.
-    const plaintext = Buffer.from(base64Data, 'base64').toString('utf8');
 
-    ///Your encryption logic here
+    const updated_output_byte = Array.from(originalText).map(char => char.charCodeAt(0)); // convert the updated string to byte array again
+    var output = updated_output_byte +"\n--BODY_END--\n"+updatedHeader  // create the final output string in the same format as input file
+    fs.writeFileSync(absoluteFilePath,output)  // write to same temp file in same formamt body\n--BODY_END--\nheader
 
-    // print the output
-    console.log(output)
+    function Decryption(ciphertext) {
+        // your logic to decrypt/encrypt the ciphertext and return updated text
+    return ciphertext;
+    }
+
+    function Read_parse_Header(headersRaw) {
+    // logic to read/edit header
+    return headersRaw;
+    }
     ```
 
 
-=== "Java"
+### Parsing Headers
+The headers are in the raw format, For Request Type Complete body, you can read, edit the headers and save the updated header in the temp file. In case of other request type selected, you can read the headers to get any value you want you can edit as well in your script.
 
-    ``` java
-    import org.json.JSONObject;   //https://github.com/stleary/JSON-java
-    import java.io.FileReader;
-    import java.io.IOException;
-    import java.nio.charset.StandardCharsets;
-    import java.text.ParseException;
-    import java.util.Base64;
-    
-    public class AESCBC128Decrypt {
+PyCript will ignore the headers from the temp file even if your script has updated if the request type is not completed body. But in any case if you want to read header to get values or read and update headers. you have to parse the headers
 
-    public static void main(String[] args) {
+To parse the headers you can split the headers like below 
 
-        // Validate if -d is there or not
-        if (args.length != 2 || !args[0].equals("-d")) {
-            System.out.println("Usage: java AESCBCDecrypt -d cipher-data-file-path");
-            return;
-        }
 
-        // get -d value for temp file path
-        String ciphertextfilepath = args[1];
-        String base64Data = null;
-
-        // read the file content
-        try (FileReader reader = new FileReader(ciphertextfilepath)) {
-            // parse the file content as JSON
-            JSONObject jsonObject = new JSONObject(reader);
-
-            // parse JSON and get Data key from JSON Object
-            base64Data = (String) jsonObject.get("data");
-
-        } catch (IOException  e) {
-            System.err.println("Error reading JSON file: " + e.getMessage());
-        };
-        // base64 decode the value to get original data.
-        String cipher_plain_text = new String(Base64.getDecoder().decode(base64Data), StandardCharsets.UTF_8);
-
-        ///Your encryption logic here
-
-        // print the output
-        System.out.println(output);
-
-    }}
-    
-    ```
-
-
-
-### Custom Request Type
-
-When implementing the Custom Request feature in your Burp Suite extension, there are a few changes to consider in your code. The points mentioned earlier in the documentation will still apply but with the addition of some further details. Custom Request will have the headers as an array/list in base64 format in the JSON temp file as ``header`` key that will allow you to read the request header as well. The temp file will have content like below.
-
-```json
-{
-  "data": "cGxhaW50ZXh0",
-  "header": "W1BPU1QgL2NyeXB0by91c2VyLyBIVFRQLzEuMSwgSG9zdDogbG9jYWxob3N0OjgwMDAsIEtleTogMTIzNCwgSXY6IDEyMzRd"
-}
-
-```
-The ``data`` will have same encrpyted/plain text body/parameter and header will have request header in list format, Both will be base64 encoded by PyCript to get original data you have to decode both. 
-
-The header will be in list format so if you base64 decode header it will be in a list/array format as below:
-
-
-```javascript
-[POST /crypto/myprofile/ HTTP/1.1, Host: localhost:8000, Accept-Encoding: gzip, deflate, Accept: */*, Accept-Language: en-US;q=0.9,en;q=0.8, User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36, Connection: close, Key: 1234, Iv: 1234, Cache-Control: max-age=0, Content-Type: application/x-www-form-urlencoded, Content-Length: 24]
-
-```
-The encryption/decryption code will be the same as above with you having the headers as key in the JSON, You can use the above script as well as an extension to give you a header but only expect an updated parameter/body, not the headers so you can use the above script as well as it's up to you to read the header as well if needed.
-
-=== "Python"
-
-    ``` python
-    import argparse
-    from base64 import b64decode,b64encode
-    import json
-
-    # Create an argument parser
-    parser = argparse.ArgumentParser(description='Process data argument')
-    parser.add_argument('-d', '--data', help='File path with plaintext data + base64 in JSON format')
-
-    # Parse the arguments
-    args = parser.parse_args()
-
-    ## Read the temp file from -d path
-    with open(args.data, 'r') as file:
-        content = json.load(file)
-
-    # get the data and header key from the JSON    
-    cihper_or_plaintext_in_base64 = content.get("data")
-    header_in_base64 = content.get("header")
-
-    # Base64 decode to the original data and header
-    cihper_or_plaintext = b64decode(cihper_or_plaintext_in_base64).decode('utf-8')
-    header_plaintext_list = b64decode(header_in_base64).decode('utf-8')
-
-
-    ## Your encryption logic
-
-    print(output)  # Only print output of cihper_or_plaintext not header as header is read only
-    ```
-
-=== "JavaScript"
-
-    ``` javascript
-    const fs = require('fs');
-    const path = require('path');
-    var CryptoJS = require("crypto-js");
-    const { program } = require('commander');
-    const { Buffer } = require('buffer');
-
-    program
-    .option('-d, --data <file_path>', 'Path to JSON file containing base64 encoded + encrypted data');
-    
-    program.parse(process.argv);
-    const options = program.opts();
-    
-    // Read the -d value
-    const filePath = options.data;
-
-    // reolve the full of -d provided path to avoid error in reading file.
-    const absoluteFilePath = path.resolve(filePath);
-    
-    // read the file.
-    var data = fs.readFileSync(absoluteFilePath).toString();
-
-    //parse the json from the file
-    const jsonData = JSON.parse(data);
-
-    // get the JSON data and header key value
-    const base64Data = jsonData.data; 
-    const base64header = jsonData.header; 
-
-    // base64 decode the value to get original data and header.
-    const cihper_or_plaintext = Buffer.from(base64Data, 'base64').toString('utf8');
-    const plaintext_list_header = Buffer.from(base64header, 'base64').toString('utf8');
-
-    ///Your encryption logic here
-
-    // print the output
-    console.log(output) // Only print output of cihper_or_plaintext not header as header is read only
-    ```
-
-
-=== "Java"
-
-    ``` java
-    import org.json.JSONObject;   //https://github.com/stleary/JSON-java
-    import java.io.FileReader;
-    import java.io.IOException;
-    import java.nio.charset.StandardCharsets;
-    import java.text.ParseException;
-    import java.util.Base64;
-    
-    public class AESCBC128Decrypt {
-
-    public static void main(String[] args) {
-
-        // Validate if -d is there or not
-        if (args.length != 2 || !args[0].equals("-d")) {
-            System.out.println("Usage: java AESCBCDecrypt -d cipher-data-file-path");
-            return;
-        }
-
-        // get -d value for temp file path
-        String ciphertextfilepath = args[1];
-        String base64Data = null;
-
-        // read the file content
-        try (FileReader reader = new FileReader(ciphertextfilepath)) {
-            // parse the file content as JSON
-            JSONObject jsonObject = new JSONObject(reader);
-
-            // parse JSON and get Data and header key from JSON Object
-            base64Data = (String) jsonObject.get("data");
-            base64headerStr = (String) jsonObject.get("header");
-
-        } catch (IOException  e) {
-            System.err.println("Error reading JSON file: " + e.getMessage());
-        };
-        // base64 decode the value to get original data.
-        String cipher_plain_text = new String(Base64.getDecoder().decode(base64Data), StandardCharsets.UTF_8);
-        String header_in_plain_text = new String(Base64.getDecoder().decode(base64headerStr), StandardCharsets.UTF_8); // you can use it as string or convert to list
-
-        ///Your encryption logic here
-
-        // print the output
-        System.out.println(output); // Only print output of cipher_plain_text not header as header is read only
-
-    }}
-    
-    ```
-
-!!! Warning "Warning"
-
-    
-    Given the limitation of only being able to read the header, it is important to ensure that you only print the output of the encryption/decryption process on Data key value and not the header. 
-
-
-
-
-
-
-### Custom Request (Edit Headers)
-
-Custom Request and Custom Request (Edit Header) have several similarities with a few key differences:
-
-
-- The header value in Custom Request is in a list/array format, whereas in Custom Request (Edit Header), the header is in raw format, just as you would see it in Burp Suite.
-
-- Since Custom Request (Edit Header) allows for header editing, it's necessary to print the header as well, but in base64 format.
-
-- The output of the encrypted/decrypted string/body will also be in the base64 format.
-
-- It is important to print the base64 header first, followed by the base64 body/parameter.
-
-- Since the header is in raw format, you can split it using new line characters (\n) to edit or add new headers.
-
-- When printing the updated header in base64, it should retain the same raw format. If you split the header with new line characters to make changes, you will need to join it again to restore it to the original raw format.
-
-
-
-```json
-{"data":"cGxhaW50ZXh0","header":"UE9TVCAvYXBpL2dldHVzZXI0IEhUVFAvMS4xCkhvc3Q6IDEyNy4wLjAuMTo4MDAwCkFjY2VwdC1FbmNvZGluZzogZ3ppcCwgZGVmbGF0ZQpBY2NlcHQ6ICovKgpTaWduYXR1cmU6IDA4NjFjMDBiODFlNWY2OTZkNGE5MjM3MGE4OTYxYzEyCkFjY2VwdC1MYW5ndWFnZTogZW4tVVM7cT0wLjksZW47cT0wLjgKVXNlci1BZ2VudDogTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzEwMy4wLjUwNjAuMTM0IFNhZmFyaS81MzcuMzYKQ29ubmVjdGlvbjogY2xvc2UKQ2FjaGUtQ29udHJvbDogbWF4LWFnZT0wCkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbgpDb250ZW50LUxlbmd0aDogMzg="}
-```
-
-If you base64 decode the header you will see like this same as raw http request.
 
 ```http
 POST /api/getuser4 HTTP/1.1
@@ -398,137 +270,43 @@ Content-Length: 38
 === "Python"
 
     ``` python
-    import argparse
-    from base64 import b64decode,b64encode
-    import json
+    #to just read the headers 
+    headersplit = header.splitlines()
+    Host = next((line for line in headersplit if line.startswith('Host:')), None)
+    User_Agent = next((line for line in headersplit if line.startswith('User-Agent:')), None)
 
-    # Create an argument parser
-    parser = argparse.ArgumentParser(description='Process data argument')
-    parser.add_argument('-d', '--data', help='File path with plaintext data + base64 in JSON format')
-
-    # Parse the arguments
-    args = parser.parse_args()
-
-    ## Read the temp file from -d path
-    with open(args.data, 'r') as file:
-        content = json.load(file)
-
-    # get the data and header key from the JSON    
-    cihper_or_plaintext_in_base64 = content.get("data")
-    header_in_base64 = content.get("header")
-
-    # Base64 decode to the original data and header
-    cihper_or_plaintext = b64decode(cihper_or_plaintext_in_base64).decode('utf-8')
-    header_plaintext_list = b64decode(header_in_base64).decode('utf-8')
-
-    ## Your encryption logic
-
-    ## Update the header
-
-    ## print the base64 encoded header first then body
-    print(b64encode(updated_header))
-    print(b64encode(updatedbody))
+    #to read or edit the header value so you can save updated output file
+    headersplit = header.splitlines()
+    for i, line in enumerate(headersplit):
+        if line.startswith('Host:'):
+            headersplit[i] = 'Host: updated.host.com'
+            break
+    # rejoin the header, this is important
+    updatedheader = '\r\n'.join(headersplit)  # we can now save updatedheader in the temp file.
+    
     
     ```
 
 === "JavaScript"
 
     ``` javascript
-    const fs = require('fs');
-    const path = require('path');
-    var CryptoJS = require("crypto-js");
-    const { program } = require('commander');
-    const { Buffer } = require('buffer');
 
-    program
-    .option('-d, --data <file_path>', 'Path to JSON file containing base64 encoded + encrypted data');
+    // to just read the headers 
+    const headersplit = header.split(/\r?\n/);
+    const Host = headersplit.find(line => line.startsWith('Host:'));   
+    const User_Agent = headersplit.find(line => line.startsWith('User-Agent:'));
 
-    program.parse(process.argv);
-    const options = program.opts();
+    // to read or edit the header value so you can save updated output file
 
-    // Read the -d value
-    const filePath = options.data;
-
-    // reolve the full of -d provided path to avoid error in reading file.
-    const absoluteFilePath = path.resolve(filePath);
-
-    // read the file.
-    var data = fs.readFileSync(absoluteFilePath).toString();
-
-    //parse the json from the file
-    const jsonData = JSON.parse(data);
-
-    // get the JSON data and header key value
-    const base64Data = jsonData.data; 
-    const base64header = jsonData.header; 
-
-    // base64 decode the value to get original data and header.
-    const cihper_or_plaintext = Buffer.from(base64Data, 'base64').toString('utf8');
-    const plaintext_list_header = Buffer.from(base64header, 'base64').toString('utf8');
-
-
-    'Your encryption and decryption logic should be here'
-    'Updated the header'
-
-
-    // print the updated base64 header and followed by updated base64 body
-    console.log(Buffer.from(updatedheader).toString('base64'));
-    console.log(Buffer.from(updatedbody).toString('base64'));
-    ```
-
-
-=== "Java"
-
-    ```java
-    import org.json.JSONObject;   //https://github.com/stleary/JSON-java
-    import java.io.FileReader;
-    import java.io.IOException;
-    import java.nio.charset.StandardCharsets;
-    import java.text.ParseException;
-    import java.util.Base64;
-
-    public class AESCBC128Decrypt {
-
-    public static void main(String[] args) {
-
-        // Validate if -d is there or not
-        if (args.length != 2 || !args[0].equals("-d")) {
-            System.out.println("Usage: java AESCBCDecrypt -d cipher-data-file-path");
-            return;
+    var headersplit = header.split(/\r?\n/)
+    for (var i = 0; i < headersplit.length; i++) {
+    if (headersplit[i].startsWith('Host:')) {
+        headersplit[i] = 'Host: updated.host.com' ;
+        break;
         }
-
-        // get -d value for temp file path
-        String ciphertextfilepath = args[1];
-        String base64Data = null;
-
-        // read the file content
-        try (FileReader reader = new FileReader(ciphertextfilepath)) {
-            // parse the file content as JSON
-            JSONObject jsonObject = new JSONObject(reader);
-
-            // parse JSON and get Data and header key from JSON Object
-            base64Data = (String) jsonObject.get("data");
-            base64headerStr = (String) jsonObject.get("header");
-
-        } catch (IOException  e) {
-            System.err.println("Error reading JSON file: " + e.getMessage());
-        };
-        // base64 decode the value to get original data.
-        String cipher_plain_text = new String(Base64.getDecoder().decode(base64Data), StandardCharsets.UTF_8);
-        String header_in_plain_text = new String(Base64.getDecoder().decode(base64headerStr), StandardCharsets.UTF_8); // you can use it as string or convert to list
-
-        ///Your encryption logic here
-
-        // print the output
-        String updatedHeaderBase64 = Base64.getEncoder().encodeToString(updatedHeader.getBytes(StandardCharsets.UTF_8));
-        String updatedBase64Body = Base64.getEncoder().encodeToString(updatedBody.getBytes(StandardCharsets.UTF_8));
-
-        //print the header first then body
-        System.out.println(updatedHeaderBase64);
-        System.out.println(updatedBase64Body);
-
-    }}
-
+    }
+    // rejoin the header, this is important
+    var updatedheader = headersplit.join("\r\n")  // we can now save updatedheader in the temp file.
     ```
 
 
@@ -539,11 +317,11 @@ Content-Length: 38
 
 If you encounter difficulties decrypting or encrypting the request within the extension, it is important to ensure that your code is functioning correctly. To encrypt or decrypt the request body or string, you can follow these steps: 
 
-1. Base64 encode the value you wish to encrypt or decrypt.
-2. Store the value in a file as JSON content like ``{"data":"your-base64-encoded-value-of-plaintext/encrypted-data"}``
-3. Execute the same command in your terminal or CMD, like youscript -d path-tofile
-
-By performing these steps, you can verify the functionality of the encryption or decryption process outside of the extension environment.
+1. The log tab within the PyCript will always print the value of temp file created by the PyCript.
+2. If your script is not working or having some errors, you can manually save the temp file data from the log tab and run your script locally on that data.
+3. Temp file created by the PyCript is deleted as soon as your script is execution is completed for that PyCript write the temp file data to logs in case you need it for debugging.
+4. If your script does not have any errors its working but you are not getting expected output in the Burp Suite request. It could be error from PyCript to read the updated temp file or could error from your script.
+5. To debug the cause you can add as many print in your script. you can even print the final output from your script along with saving it into the the file and can see the print output in the PyCript log to verify if your script is giving correct output or not.
 
 !!! Info "Info"
 
@@ -556,7 +334,5 @@ By performing these steps, you can verify the functionality of the encryption or
 
 
 
-## Demo Code
-If you are looking for demo encryption decryption code for common type of encryption or logic you can get it from the [PyCript Template](https://github.com/Anof-cyber/PyCript-Template)
 
 

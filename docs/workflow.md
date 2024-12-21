@@ -37,13 +37,19 @@ sec-ch-ua-platform: "Windows"
 
 !!! info "Note"
     
-    In case of response encryption/decryption temp file will be no data after ``--BODY_END--``as no headers are there for response.
+    In case of response encryption/decryption temp file will have no data after ``--BODY_END--`` as no headers are there for response.
 
 
 * Complete Body - The extension will take the request/response body convert it in byte array format, take raw plaintext header, save the file in above format.
 - Parameter Value - PyCript is designed to iterate through the request/response parameter values and convert it in byte array format take raw plaintext header, save the file in above format. It will then update each value one by one.
 
 - Parameter key and value - The PyCript extension adopts a similar approach to that of parameter value. It iterates through each parameter name and value and convert it in byte array format take raw plaintext header, save the file in above format, passing them one by one to the script for updating.
+
+
+![PyCript Workflow](https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/refs/heads/main/Image/flow.gif)
+
+
+
 
 
 
@@ -58,6 +64,9 @@ sec-ch-ua-platform: "Windows"
 * Select the Request or Response Type like Complete Body, Paramter Value etc.
 * Make sure the URL you want to work with is within the scope of Burp Suite.
 * Once you've located the encrypted request or response, a new PyCript tab will be generated next to it, with a plaintext version that you can edit as needed.
+
+
+
 
 
 ## Parameters

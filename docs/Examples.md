@@ -11,7 +11,7 @@ The configuration tab contains all the necessary settings to enable encryption a
 
 !!! Warning "Warning"
 
-    PyCript version 0.4 change the use of encrpytion decryption langague as well how it pass data to the encrpytion decryption script over command line argmunet.
+    PyCript version 1.0 change the use of encryption decryption language as well how it pass data to the encryption decryption script over command line argument.
     Older script will not work with new PyCript. Check the "Select Language" and "Writing Custom Scripts" page.
 
 
@@ -29,192 +29,19 @@ The Request Type feature enables you to choose the specific request or message t
 
 === "Complete Body"
 
-    The "Complete Body" option within the request type of your Burp Suite extension offers valuable functionality in various scenarios. It proves useful when the entire request body is encrypted, or when the body contains encrypted data along with key/iv within it. Additionally, this option is beneficial if you desire to implement custom parsing of the request body through a script of your choice.
+    The "Complete Body" provides the capability to modify the request header an body, means complete request. This functionality is not limited to editing alone; you can also add or delete headers as needed. It proves to be particularly useful in applications where data modification is restricted through various proxy or validation mechanisms, such as adding a signature to request parameters or body and enforcing signature verification to prevent any value modification, Or you want to parse the request with your own script.
 
-    By selecting the "Complete Body" option, Pycript will take the entire request body and pass it to the encryption and decryption script provided by the user. This allows for seamless integration of your own encryption and decryption logic with Burp Suite.
+    By selecting the "Complete Body" option, Pycript will take the entire request body in Byte Array Format and Headers in plain text format and pass it to the encryption and decryption script provided by the user. This allows for seamless integration of your own encryption and decryption logic with Burp Suite.
 
-    === "Example 1"
-
-        ```http
-        POST /api/getuser HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 24
-
-        AEIwJOtaQXdO9qzIJFIhEQ==
-        ```
-
-        <img src="/0.2/assets/Complete%20Body%20-%20Example%201.gif"/>
-
-    === "Example 2"
-
-        ```http
-        POST /api/getuser2 HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 88
-
-        {"user_id": "W12wkCO+v4IOkEN3ENbRNQ==","key":"mysecretkey12345","iv":"n2r5u8x/A%D*G-Ka"}
-        ```
-        <img src="/0.2/assets/Complete%20Body%20-%20Example%202.gif"/>
-
+  
 
 
 === "Parameter Value"
 
-    When dealing with multiple parameters, where only the parameter values are encrypted, the parameter value can be retrieved from query parameters, JSON values, or body parameters. The PyCript module handles this process by passing one parameter value at a time to the user-provided script. The complete body or parameters are not passed to the script.
+    When dealing with multiple parameters, where only the parameter values are encrypted, the parameter value can be retrieved from query parameters, JSON values, or body parameters. The PyCript module handles this process by passing one parameter value at a time to the user-provided script. The complete body or parameters are not passed to the script. Instead PyCript loop through each parameter, convert its value to Byte Array and passes with to User Script along with Plain text Header.
 
-    === "Example 1"
+    Parameter value allow your script to read header as well. Your script cannot provide edited headers. You can only update parameter values not request headers. 
 
-        ```http
-        POST /api/getuser2 HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 39
-
-        {"user_id": "kmcduz+eWvqNbPAq//UQGA=="}
-        ```
-        <img src="/0.2/assets/Paramter%20Value%20-%20Example%201.gif"/>
-
-    === "Example 2"
-
-        ```http
-        GET /api/getuser5?user_id=W12wkCO+v4IOkEN3ENbRNQ== HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-
-        ```
-
-        <img src="/0.2/assets/Paramter%20Value%20-%20Example%202.gif"/>
-
-
-    === "Example 3"
-
-        ```http
-        POST /api/getuser5?user_id=kmcduz+eWvqNbPAq//UQGA== HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 39
-
-        {"user_id": "kmcduz+eWvqNbPAq//UQGA=="}
-
-        ```
-
-        <img src="/0.2/assets/Paramter%20Value%20-%20Example%203.gif"/>
-
-
-=== "Parameter Key and Value"
-
-
-    The Parameter Key and Value method proves to be valuable when dealing with encrypted parameter names and values in an application. By utilizing Pycript, the extension follows a consistent process of combining each parameter and its corresponding value. Subsequently, it proceeds to individually pass each resulting string to the encryption and decryption script.
-
-    === "Example 1"
-
-        ```http
-        POST /api/getuser3 HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 56
-
-        {"elHLzVxVH4e3AayiZkfB9g==": "W12wkCO+v4IOkEN3ENbRNQ=="}
-
-        ```
-
-        <img src="/0.2/assets/Paramter%20Key%20and%20value%20-%20Example%201.gif"/>
-
-
-=== "Custom Request"
-
-    The custom request feature is valuable for executing specific actions using scripts. It proves particularly helpful in scenarios where the request body is encrypted, and the encryption key or initialization vector (IV) is stored in the header. In such cases, the "Complete Body" option cannot be used.
-
-    When utilizing the Custom Request type, both the request body and header are passed to the script for encryption and decryption purposes. This functionality enables you to access and analyze the headers while performing the necessary encryption or decryption operations.
-
-    === "Example 1"
-
-        ```http
-        POST /api/getuser HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Key: mysecretkey12345
-        Iv: n2r5u8x/A%D*G-Ka
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 24
-
-        AEIwJOtaQXdO9qzIJFIhEQ==
-
-        ```
-
-        <img src="/0.2/assets/Custom%20Request%20-%20Example%201.gif"/>
-
-
-
-
-
-=== "Custom Request Edit Header"
-
-    
-    The "Custom Request Edit Header" feature was introduced in version 0.2 of the Burp Suite extension. It provides the capability to modify the request header. This functionality is not limited to editing alone; you can also add or delete headers as needed. It proves to be particularly useful in applications where data modification is restricted through various proxy or validation mechanisms, such as adding a signature to request parameters or body and enforcing signature verification to prevent any value modification.
-
-    === "Example 1"
-
-        ```http
-        POST /api/getuser4 HTTP/1.1
-        Host: 127.0.0.1:8000
-        Accept-Encoding: gzip, deflate
-        Accept: */*
-        Signature: 7d1b73091d0f089a3a790af24404f6b4
-        Accept-Language: en-US;q=0.9,en;q=0.8
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36
-        Connection: close
-        Cache-Control: max-age=0
-        Content-Type: application/json
-        Content-Length: 39
-
-        {"user_id": "W12wkCO+v4IOkEN3ENbRNQ=="}
-
-        ```
-
-        <img src="/0.2/assets/Edit%20Header%20-%20Example%201.gif"/>
 
 
 
@@ -233,8 +60,12 @@ The Response Type feature enables you to choose the specific response or message
 
 !!! Info "Info"
 
-    The Response Type in your Burp Suite extension mirrors the functionality of the request type. In fact, you can utilize the same script for both request and response actions, with the exception of the Custom Request and Custom Request (Edit Header) options.
+    The Response Type in your Burp Suite extension mirrors the functionality of the request type. In fact, you can utilize the same script for both request and response actions.
 
+
+!!! Info "Info"
+
+    The Response Type does not allow you to edit headers in the response. 
 
 ### Additional Setting
 
@@ -243,6 +74,11 @@ The Additional settings in your Burp Suite extension allow you to configure the 
 `Language`
 
 : You can select the language that will be used for encryption and decryption. It's important to note that the same language will be applied to both request and response, as well as for both encryption and decryption operations.
+
+`Clear Language Selection`
+
+: You can use the button to remove the selected language. You don't need to define the language when encryption decryption is in binary format like compiled code from C++ or C etc.
+
 
 `Encryption Method`
 
@@ -292,7 +128,7 @@ Upon selecting the PyCript submenu, you will be presented with three distinct op
 
 * Encrypt String: This option allows you to encrypt selected data within the request and response. PyCript will show you the encrypted version of the selected string.
 
-<img src="/0.4/assets/string.png"/>
+<img src="https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/refs/heads/gh-pages/0.4/assets/string.png"/>
 
 
 !!! Info "Info"
