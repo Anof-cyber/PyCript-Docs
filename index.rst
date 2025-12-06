@@ -2,21 +2,26 @@
 
 ![PyCript](https://i.ibb.co/KqGXSq0/Py-Cript-Banner.png)
 
-The Pycript extension for Burp Suite is a valuable tool for penetration testing and security professionals. It enables easy encryption and decryption of requests during testing, which can help evade detection and bypass security measures. The extension also offers the ability to customize the encryption and decryption process by writing custom logic using JavaScript and Node.js, making it a highly adaptable tool for various needs. Additionally, it supports both manual and automated testing, as well as custom encryption/decryption plugins, making it a versatile solution for different penetration testing scenarios.
-
+The PyCript extension for Burp Suite is a powerful tool for penetration testing and security professionals that enables seamless encryption and decryption of HTTP requests, responses, and WebSocket messages during security assessments. It helps testers bypass client-side encryption to perform comprehensive manual and automated application penetration testing. The extension offers unparalleled flexibility by allowing users to implement custom encryption and decryption logic using any programming language—including Python, JavaScript/Node.js, Go, C, Bash, and more—making it highly adaptable to diverse encryption schemes and testing scenarios.
 
 ### Features
-- Ability to decrypt requests and modify data in real-time
-- Provides JavaScript and NodeJS support for custom encryption and decryption logic.
-- The ability to retrieve the encryption key and IV directly from the request header and body using Burpsuite and JavaScript.
-- Supports decryption of multiple requests 
-- Use auto-encryption to perform an automated burp scan or sqlmap
+- Decrypt and encrypt HTTP requests, responses, and WebSocket messages in real-time
+- Universal language support - write custom encryption/decryption logic in any programming language (Python, Node.js, Go, C, Bash, etc.)
+- Scope-aware processing - automatically respects Burp's scope settings to process only in-scope targets
+- Retrieve encryption keys, IVs, and other parameters directly from request headers and bodies
+- Support for both text-based and binary encryption formats
+- Header manipulation capabilities during encryption/decryption processes
+- Supports decryption of multiple requests simultaneously
+- Seamless integration with Burp's Repeater, Intruder, Scanner, and other tools
+- Use auto-encryption to perform automated Burp scans or integrate with tools like SQLMap
+- WebSocket message encryption/decryption with full bidirectional support
+
 
 ### Sponsor
 <a href="https://www.buymeacoffee.com/AnoF"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=AnoF&button_colour=FF5F5F&font_colour=ffffff&font_family=Arial&outline_colour=000000&coffee_colour=FFDD00" /></a>
 [![Sponsor](https://i.stack.imgur.com/nr7DS.jpg)](https://github.com/sponsors/Anof-cyber)
 
-### Team 
+### Team
 #### [Sourav Kalal](https://twitter.com/ano_f_)
 
 ### Documentation

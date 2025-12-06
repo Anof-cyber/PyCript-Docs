@@ -1,49 +1,60 @@
 ## Flow of the Extension
 
-
-PyCript utilizes system commands to run user-specified encryption and decryption scripts. In the new version, the extension passes the HTTP request body or parameters as byte arrays and headers as plain raw text, storing them in a temporary file. The file also separates headers and body/parameters using the marker ``\n--BODY_END--\n``. Instead of reading the script's output directly, PyCript executes the system command with the path to the temporary file provided to the user script. After execution, the extension reads the updated request or response data from the same temporary file, converting the byte array (body/parameters) back to strings and directly using the updated headers. These updated values are then replaced in the request or response within Burp Suite.
+PyCript utilizes system commands to run user-specified encryption and decryption scripts. The extension passes the HTTP request/response body or parameters as raw data (text or binary) and headers as plain text, storing them in a temporary file. The file separates headers and body/parameters using the marker ``\n--BODY_END--\n``. PyCript executes the system command with the path to the temporary file provided to the user script. After execution, the extension reads the updated request or response data from the same temporary file, using the updated body/parameters and headers directly. These updated values are then replaced in the request or response within Burp Suite.
 
 ## Commands
 
-
-The PyCript extension generates a temp file (from version 1.00) and stores the request body/parameter and header in raw text + byte array format. The extension passes the temp file location to the encryption-decryption script using -d command line argument. The JSON data will be based on the PyCript configuration.
-
+The PyCript extension generates a temp file and stores the request body/parameter and header in raw format. The extension passes the temp file location to the encryption-decryption script using -d command line argument.
 
 * node script.js -d tempfile-path
 * python script.py -d tempfile-path
 * java -jar script.jar -d tempfile-path
 
-The temp file will have encrypted/decrypted parameter or request body and request header in below format.
+The temp file will have encrypted/decrypted parameter or request body and request header in the following format:
 
 ```text
-    
-[118, 75, 85, 86, 118, 111, 50, 57, 112, 100, 76, 50, 105, 67, 101, 109, 82, 97, 116, 115, 85, 80, 122, 122, 102, 89, 106, 57, 43, 110, 81, 75, 101, 99, 90, 43, 83, 87, 51, 70, 75, 65, 117, 66, 90, 107, 82, 101, 77, 75, 105, 80, 82, 74, 107, 112, 105, 53, 86, 66, 122, 89, 119]
+{"username":"admin","password":"admin"}
 --BODY_END--
-POST /complete-body/api/2 HTTP/1.1
-Host: 127.0.0.1:8000
-Content-Length: 64
+POST /decrypt HTTP/1.1
+Host: localhost:8000
+Content-Length: 48
 sec-ch-ua-platform: "Windows"
-    
+Accept-Language: en-US,en;q=0.9
 ```
 
+For binary encrypted data, the body before the marker will contain raw binary bytes:
+
+```text
+��V�6��K� �����[Q}�18'tt�|^KAF��	섐���j~.H�
+--BODY_END--
+POST /decrypt HTTP/1.1
+Host: localhost:8000
+Content-Length: 48
+```
 
 !!! info "Note"
 
-    header is only available for request encryption decryption not for response.
+    Headers are only available for request encryption/decryption, not for response.
 
 !!! info "Note"
 
-    Header can only be edited if Request Type is Complete Body.
+    Headers can only be edited if Request Type is Complete Body.
 
 !!! info "Note"
-    
-    In case of response encryption/decryption temp file will have no data after ``--BODY_END--`` as no headers are there for response.
 
+    In case of response encryption/decryption, the temp file will have no data after ``--BODY_END--`` as no headers are present for response.
 
-* Complete Body - The extension will take the request/response body convert it in byte array format, take raw plaintext header, save the file in above format.
-- Parameter Value - PyCript is designed to iterate through the request/response parameter values and convert it in byte array format take raw plaintext header, save the file in above format. It will then update each value one by one.
+!!! info "Note"
 
-- Parameter key and value - The PyCript extension adopts a similar approach to that of parameter value. It iterates through each parameter name and value and convert it in byte array format take raw plaintext header, save the file in above format, passing them one by one to the script for updating.
+    Your script should read the file as binary to properly handle both text and binary encrypted data. Write output in the same format: data + ``\n--BODY_END--\n`` + headers.
+
+!!! info "Note"
+
+    WebSocket messages do not have headers, similar to responses. The temp file will have no data after ``--BODY_END--`` but the marker must still be included in the output.
+
+* Complete Body - The extension will take the request/response body as raw data, take plaintext headers, and save the file in the above format.
+- Parameter Value - PyCript is designed to iterate through the request/response parameter values, take raw plaintext headers, and save the file in the above format. It will then update each value one by one.
+- Parameter key and value - The PyCript extension adopts a similar approach to that of parameter value. It iterates through each parameter name and value, passing them one by one to the script for updating.
 
 
 ![PyCript Workflow](https://raw.githubusercontent.com/Anof-cyber/PyCript-Docs/refs/heads/main/Image/flow.gif)
@@ -74,7 +85,7 @@ sec-ch-ua-platform: "Windows"
 It is important to verify the supported request parameters or content types by PyCript. The following methods encompass the content types and parameters supported by PyCript:
 
 === "Body Parameters"
-    
+
 
     The PyCript extension leverages the APIs offered by Burp Suite to examine get and body parameters. However, there may be situations where its performance is suboptimal when faced with encrypted or encoded parameters containing multiple `=` characters. If you encounter challenges in parsing such requests, it is recommended to use the complete body options and incorporate customized parsing into your script.
 
@@ -115,4 +126,8 @@ It is important to verify the supported request parameters or content types by P
 !!! info "Info"
 
     The version 1.0 support multipart form data as well. Multi part form can have file upload data as well, It is recommended to add the file upload parameter name in the parameter exclusion list.
+
+!!! info "Info"
+
+    PyCript also supports WebSocket messages. The extension can encrypt and decrypt WebSocket message payloads in the same way as HTTP requests and responses.
 
